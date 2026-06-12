@@ -1,0 +1,57 @@
+
+> temp-app@0.1.0 dev
+> next dev
+
+▲ Next.js 16.2.6 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://192.168.1.6:3000
+- Environments: .env.local
+✓ Ready in 1097ms
+⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
+
+ GET /products 200 in 875ms (next.js: 342ms, application-code: 533ms)
+ GET / 200 in 465ms (next.js: 75ms, application-code: 390ms)
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead. (file://C:/Users/Asus/Downloads/sanghi-main/sanghi-main/.next/dev/static/chunks/node_modules_three_build_three_core_0qefhn6.js:2411:21)
+[browser] Image with src "https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&q=80&w=800" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[browser] THREE.WebGLShadowMap: PCFSoftShadowMap has been deprecated. Using PCFShadowMap instead. (file://C:/Users/Asus/Downloads/sanghi-main/sanghi-main/.next/dev/static/chunks/node_modules_three_build_three_core_0qefhn6.js:2411:21)
+[browser] Image with src "https://images.unsplash.com/photo-1513828583688-c52646db42da?auto=format&fit=crop&q=80" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[browser] THREE.WebGLShadowMap: PCFSoftShadowMap has been deprecated. Using PCFShadowMap instead. (file://C:/Users/Asus/Downloads/sanghi-main/sanghi-main/.next/dev/static/chunks/node_modules_three_build_three_core_0qefhn6.js:2411:21)
+[browser] THREE.WebGLShadowMap: PCFSoftShadowMap has been deprecated. Using PCFShadowMap instead. (file://C:/Users/Asus/Downloads/sanghi-main/sanghi-main/.next/dev/static/chunks/node_modules_three_build_three_core_0qefhn6.js:2411:21)
+ GET / 200 in 176ms (next.js: 7ms, application-code: 169ms)
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead. (file://C:/Users/Asus/Downloads/sanghi-main/sanghi-main/.next/dev/static/chunks/node_modules_three_build_three_core_0qefhn6.js:2411:21)
+[browser] Image with src "https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&q=80&w=800" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[browser] Image with src "https://images.unsplash.com/photo-1513828583688-c52646db42da?auto=format&fit=crop&q=80" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+ GET / 200 in 212ms (next.js: 11ms, application-code: 201ms)
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead. (file://C:/Users/Asus/Downloads/sanghi-main/sanghi-main/.next/dev/static/chunks/node_modules_three_build_three_core_0qefhn6.js:2411:21)
+ GET / 200 in 154ms (next.js: 5ms, application-code: 149ms)
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead. (file://C:/Users/Asus/Downloads/sanghi-main/sanghi-main/.next/dev/static/chunks/node_modules_three_build_three_core_0qefhn6.js:2411:21)
+ GET / 200 in 160ms (next.js: 5ms, application-code: 154ms)
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead. (file://C:/Users/Asus/Downloads/sanghi-main/sanghi-main/.next/dev/static/chunks/node_modules_three_build_three_core_0qefhn6.js:2411:21)
+ GET / 200 in 178ms (next.js: 5ms, application-code: 173ms)
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead. (file://C:/Users/Asus/Downloads/sanghi-main/sanghi-main/.next/dev/static/chunks/node_modules_three_build_three_core_0qefhn6.js:2411:21)
+[browser] Image with src "https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&q=80&w=800" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[browser] Image with src "https://images.unsplash.com/photo-1513828583688-c52646db42da?auto=format&fit=crop&q=80" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+ GET / 200 in 169ms (next.js: 6ms, application-code: 164ms)
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead. (file://C:/Users/Asus/Downloads/sanghi-main/sanghi-main/.next/dev/static/chunks/node_modules_three_build_three_core_0qefhn6.js:2411:21)
+ GET / 200 in 155ms (next.js: 8ms, application-code: 147ms)
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead. (file://C:/Users/Asus/Downloads/sanghi-main/sanghi-main/.next/dev/static/chunks/node_modules_three_build_three_core_0qefhn6.js:2411:21)
+ GET / 200 in 151ms (next.js: 8ms, application-code: 142ms)
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead. (file://C:/Users/Asus/Downloads/sanghi-main/sanghi-main/.next/dev/static/chunks/node_modules_three_build_three_core_0qefhn6.js:2411:21)
+ GET / 200 in 178ms (next.js: 6ms, application-code: 172ms)
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead. (file://C:/Users/Asus/Downloads/sanghi-main/sanghi-main/.next/dev/static/chunks/node_modules_three_build_three_core_0qefhn6.js:2411:21)
+[browser] Image with src "https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&q=80&w=800" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[browser] Image with src "https://images.unsplash.com/photo-1513828583688-c52646db42da?auto=format&fit=crop&q=80" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+ GET / 200 in 169ms (next.js: 6ms, application-code: 163ms)
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead. (file://C:/Users/Asus/Downloads/sanghi-main/sanghi-main/.next/dev/static/chunks/node_modules_three_build_three_core_0qefhn6.js:2411:21)
+[browser] Image with src "https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&q=80&w=800" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[browser] Image with src "https://images.unsplash.com/photo-1513828583688-c52646db42da?auto=format&fit=crop&q=80" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+ GET / 200 in 751ms (next.js: 165ms, application-code: 586ms)
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead. (file://C:/Users/Asus/Downloads/sanghi-main/sanghi-main/.next/dev/static/chunks/node_modules_three_build_three_core_0qefhn6.js:2411:21)
+[browser] Image with src "https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&q=80&w=800" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[browser] Image with src "https://images.unsplash.com/photo-1513828583688-c52646db42da?auto=format&fit=crop&q=80" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+ GET / 200 in 122ms (next.js: 5ms, application-code: 117ms)
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead. (file://C:/Users/Asus/Downloads/sanghi-main/sanghi-main/.next/dev/static/chunks/node_modules_three_build_three_core_0qefhn6.js:2411:21)
+[browser] Image with src "https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&q=80&w=800" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[browser] Image with src "https://images.unsplash.com/photo-1513828583688-c52646db42da?auto=format&fit=crop&q=80" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+ GET /products 200 in 556ms (next.js: 134ms, application-code: 422ms)
+[?25h

@@ -1,0 +1,14 @@
+import { z } from 'zod'
+
+export const adminLoginSchema = z.object({
+  email: z
+    .string()
+    .email('Please enter a valid email address')
+    .toLowerCase()
+    .trim(),
+  password: z
+    .string()
+    .min(8, 'Password must be at least 8 characters'),
+})
+
+export type AdminLoginInput = z.infer<typeof adminLoginSchema>
