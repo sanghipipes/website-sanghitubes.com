@@ -68,10 +68,18 @@ function TextSection({
   startVisible?: boolean;
   children: React.ReactNode;
 }) {
+  // Pin opacity to 0 outside the [inStart, outEnd] window. Without an explicit
+  // trailing keyframe + clamp, framer-motion lets the value climb back up past
+  // outEnd, which made the hero title re-appear and overlap "BUILT TO LAST".
   const opacity = useTransform(
     scrollProgress,
-    [inStart, peakStart, peakEnd, outEnd],
-    [startVisible ? 1 : 0, 1, 1, 0],
+    outEnd < 1
+      ? [inStart, peakStart, peakEnd, outEnd, 1]
+      : [inStart, peakStart, peakEnd, outEnd],
+    outEnd < 1
+      ? [startVisible ? 1 : 0, 1, 1, 0, 0]
+      : [startVisible ? 1 : 0, 1, 1, 0],
+    { clamp: true },
   );
   const blur = useTransform(
     scrollProgress,

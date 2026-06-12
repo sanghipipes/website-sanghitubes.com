@@ -832,21 +832,18 @@ function ModelGeometry({ type, color = '#cbd5e1', metalness = 1, roughness = 0.2
 
 export const InteractiveProductModel = ({ type, color, metalness, roughness }: InteractiveProductModelProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
-  // Only create the WebGL Canvas once the card is visible — prevents Chrome's
-  // 8-context limit from evicting the first products when 20 canvases mount at once.
+  // Mount the WebGL Canvas only while the card is near the viewport, and UNMOUNT
+  // it once it scrolls away. Browsers cap simultaneous WebGL contexts (~16); with
+  // 20 product cards each holding a context, the later cards failed to get one and
+  // rendered blank. Toggling on/off keeps only the on-screen cards live.
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
     const el = containerRef.current;
     if (!el) return;
     const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setVisible(true);
-          observer.disconnect();
-        }
-      },
-      { rootMargin: '150px' },
+      ([entry]) => setVisible(entry.isIntersecting),
+      { rootMargin: '200px' },
     );
     observer.observe(el);
     return () => observer.disconnect();
