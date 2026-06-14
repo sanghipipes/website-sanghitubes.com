@@ -13,12 +13,36 @@ export const categories = [
   "DI Pipes",
   "CI Pipes",
   "Valves",
-  "DI Specials",
+  "CI/DI Specials",
   "HDPE & Polymer",
   "MS & GI",
 ] as const;
 
 export const products: Product[] = [
+
+  // ── OPVC (featured — shown first) ─────────────────────────────────────────────
+
+  {
+    id: "opvc-pipes-fittings",
+    name: "OPVC Pipes & Fittings",
+    category: "HDPE & Polymer",
+    description:
+      "Oriented PVC (OPVC) pressure pipes and compatible injection-moulded fittings for high-pressure water distribution. Offers superior strength-to-weight ratio versus conventional uPVC.",
+    features: [
+      "Higher impact resistance than conventional uPVC",
+      "Pressure ratings PN 12.5, 16, 20, and 25",
+      "Smooth bore for low friction losses",
+      "Lightweight and easy to transport and install",
+      "Rubber ring push-fit joints",
+    ],
+    specs: {
+      Standard: "IS:16647",
+      Material: "Oriented PVC",
+      "Pressure Rating": "PN 12.5 / PN 16, 20, 25",
+      "Size Range": "DN 110 – 250 mm",
+      "Joint Type": "Rubber Ring Push-fit",
+    },
+  },
 
   // ── DI Pipes ────────────────────────────────────────────────────────────────
 
@@ -26,8 +50,7 @@ export const products: Product[] = [
     id: "di-double-flange-pipe",
     name: "D.I. Double Flange Pipe",
     category: "DI Pipes",
-    description:
-      "In-house manufactured centrifugally cast ductile iron pipe with precision-machined double flanged ends. Engineered for pump houses, bridge crossings, and vertical installations where rigid joints are required.",
+    description: "",
     features: [
       "Manufactured in-house to IS:8329",
       "Precision-machined flanged faces for leak-proof seating",
@@ -36,10 +59,10 @@ export const products: Product[] = [
       "Compatible with standard DI flanged fittings",
     ],
     specs: {
-      Standard: "IS:8329 / IS:9523",
+      Standard: "IS:8329",
       "Pressure Class": "K9 / K12",
-      "Size Range": "DN 80 – 1200 mm",
-      "Joint Type": "Double Flanged",
+      "Size Range": "DN 80 – 600 mm",
+      "Joint Type": "Flanged",
       "Internal Lining": "Bitumen / Cement Mortar",
       Coating: "Bitumen External",
     },
@@ -60,9 +83,9 @@ export const products: Product[] = [
     specs: {
       Standard: "IS:8329",
       "Pressure Class": "K7 / K9 / K10 / K12",
-      "Size Range": "DN 80 – 1000 mm",
+      "Size Range": "DN 80 – 1200 mm",
       "Joint Type": "Socket & Spigot (Tyton)",
-      "Internal Lining": "Cement Mortar (IS:3589)",
+      "Internal Lining": "Cement Mortar",
       Coating: "Bitumen External",
     },
   },
@@ -83,11 +106,10 @@ export const products: Product[] = [
       "Standard bolt circle matching IS flanged fittings",
     ],
     specs: {
-      Standard: "IS:1536 / IS:1538",
-      Class: "LA / A",
+      Standard: "IS:1536",
+      Class: "LA / A / B",
       "Size Range": "DN 80 – 600 mm",
       "Joint Type": "Double Flanged",
-      "Internal Protection": "Tar Dipped",
     },
   },
   {
@@ -105,7 +127,7 @@ export const products: Product[] = [
     specs: {
       Standard: "IS:1536",
       Class: "LA / A / B",
-      "Size Range": "DN 80 – 600 mm",
+      "Size Range": "DN 80 – 1200 mm",
       "Joint Type": "Socket & Spigot",
     },
   },
@@ -127,11 +149,10 @@ export const products: Product[] = [
     ],
     specs: {
       Standard: "IS:14846 / BS:5163",
-      "Body Material": "Ductile Iron",
+      "Body Material": "Cast Iron / Ductile Iron",
       "Pressure Rating": "PN 10 / PN 16",
-      "Size Range": "DN 50 – 600 mm",
-      "Stem Type": "Non-Rising",
-      Seat: "Resilient EPDM",
+      "Size Range": "DN 50 – 1200 mm",
+      Seat: "Resilient",
       Coating: "Fusion Bonded Epoxy",
     },
   },
@@ -149,11 +170,11 @@ export const products: Product[] = [
       "Flanged or screwed end connections",
     ],
     specs: {
-      Standard: "IS:14845 / AWWA C512",
+      Standard: "IS:14845",
       "Body Material": "Cast Iron / Ductile Iron",
       "Pressure Rating": "PN 10 / PN 16",
-      "Size Range": "DN 25 – 150 mm",
-      "Type": "Single Orifice / Double Orifice (Combination)",
+      "Size Range": "DN 25 – 200 mm",
+      "Type": "Single Action / Double Action",
     },
   },
   {
@@ -170,12 +191,10 @@ export const products: Product[] = [
       "PN10 and PN16 rated",
     ],
     specs: {
-      Standard: "IS:13095 / EN:593",
-      "Body Material": "Ductile Iron",
-      "Disc Material": "Ductile Iron / SS316",
+      Standard: "IS:13095",
+      "Body Material": "C.I. / Ductile Iron",
       "Pressure Rating": "PN 10 / PN 16",
       "Size Range": "DN 50 – 1200 mm",
-      "Seat Material": "EPDM",
     },
   },
   {
@@ -191,7 +210,7 @@ export const products: Product[] = [
       "Flanged ends to IS standard",
     ],
     specs: {
-      Standard: "IS:5312 / BS:5153",
+      Standard: "IS:5312",
       "Body Material": "Cast Iron / Ductile Iron",
       "Pressure Rating": "PN 10 / PN 16",
       "Size Range": "DN 50 – 600 mm",
@@ -203,8 +222,8 @@ export const products: Product[] = [
 
   {
     id: "di-specials",
-    name: "D.I. Specials",
-    category: "DI Specials",
+    name: "C.I./D.I. Specials",
+    category: "CI/DI Specials",
     description:
       "Complete range of ductile iron pipeline fittings and specials — bends, tees, reducers, tapers, collars, flanged adaptors, dismantling joints, and mechanical couplings — to IS:9523 for DI water mains.",
     features: [
@@ -215,9 +234,9 @@ export const products: Product[] = [
       "Custom specials fabricated to drawing",
     ],
     specs: {
-      Standard: "IS:9523 / ISO:2531",
+      Standard: "IS:9523 / IS:1538",
       "Size Range": "DN 80 – 1200 mm",
-      "Pressure Class": "K9 / K12",
+      "Pressure Class": "PN 10-16",
       "Internal Lining": "Cement Mortar / Epoxy",
       Coating: "Bitumen / FBE",
       "End Types": "Flanged / Socket & Spigot / Mechanical Joint",
@@ -240,11 +259,11 @@ export const products: Product[] = [
       "Rolls and straight lengths available",
     ],
     specs: {
-      Standard: "IS:4984 / IS:14333",
+      Standard: "IS:4984",
       Material: "PE-100 (HDPE)",
       "Pressure Range": "PN 4 – PN 20",
-      "Size Range": "DN 20 – 630 mm",
-      Colour: "Black with blue stripes (water) / Yellow (gas)",
+      "Size Range": "DN 20 – 250 mm",
+      Colour: "Black with blue stripes (water)",
     },
   },
   {
@@ -260,9 +279,8 @@ export const products: Product[] = [
       "Flanged stub ends for connection to metal systems",
     ],
     specs: {
-      Material: "PE-100 (HDPE)",
-      "Size Range": "DN 20 – 630 mm",
-      "Jointing Method": "Butt Fusion / Electrofusion",
+      "Size Range": "DN 20 – 250 mm",
+      "Jointing Method": "Butt Fusion",
       "Pressure Rating": "PN 4 – PN 20",
     },
   },
@@ -279,9 +297,9 @@ export const products: Product[] = [
       "Saddle fittings for branch connections without cutting the main",
     ],
     specs: {
-      Standard: "ISO:8085 / EN:12201 / IS:16117",
-      Material: "PE-100",
-      "Size Range": "DN 20 – 315 mm",
+      Standard: "ISO:13950 / IS:15927 (Part 3)",
+      Pressure: "PN 10-16",
+      "Size Range": "DN 20 – 250 mm",
       "Fusion Method": "Electrofusion (EF) Controller",
     },
   },
@@ -299,32 +317,11 @@ export const products: Product[] = [
       "Integral bell-and-spigot or rubber ring joints",
     ],
     specs: {
-      Standard: "IS:16098 / EN:13476",
+      Standard: "IS:16098",
       Material: "HDPE",
       "Ring Stiffness": "SN4 / SN8",
-      "Size Range": "DN 100 – 600 mm",
-      Colour: "Black outer / White inner",
-    },
-  },
-  {
-    id: "opvc-pipes-fittings",
-    name: "OPVC Pipes & Fittings",
-    category: "HDPE & Polymer",
-    description:
-      "Oriented PVC (OPVC) pressure pipes and compatible injection-moulded fittings for high-pressure water distribution. Offers superior strength-to-weight ratio versus conventional uPVC.",
-    features: [
-      "Higher impact resistance than conventional uPVC",
-      "Pressure ratings PN 10 and PN 16",
-      "Smooth bore for low friction losses",
-      "Lightweight and easy to transport and install",
-      "Rubber ring push-fit joints",
-    ],
-    specs: {
-      Standard: "IS:16647",
-      Material: "Oriented PVC",
-      "Pressure Rating": "PN 10 / PN 16",
-      "Size Range": "DN 63 – 315 mm",
-      "Joint Type": "Rubber Ring Push-fit",
+      "Size Range": "DN 100 – 900 mm",
+      Colour: "Black Outer / Orange Inner",
     },
   },
 
@@ -344,10 +341,10 @@ export const products: Product[] = [
       "Custom lengths and wall thicknesses available",
     ],
     specs: {
-      Standard: "IS:2062 / IS:1239 / IS:3589",
+      Standard: "IS:1239 / IS:3589",
       Material: "Mild Steel",
-      "Grade": "Grade A / B",
-      "Size Range": "NB 15 – 600 mm",
+      "Grade": "Grade A / B / C",
+      "Size Range": "DN 15 – 1600 mm",
       "Wall Thickness": "Light / Medium / Heavy",
     },
   },
@@ -368,7 +365,7 @@ export const products: Product[] = [
       Standard: "IS:1239 / IS:3589",
       Material: "Mild Steel",
       "End Connection": "Flanged / Welded / Screwed",
-      "Size Range": "NB 50 – 1200 mm (custom)",
+      "Size Range": "DN 15 – 1600 mm (custom)",
     },
   },
   {
@@ -427,7 +424,6 @@ export const products: Product[] = [
       Standard: "IS:1786",
       Grade: "Fe 500 / Fe 500D / Fe 550",
       "Diameter Range": "8 mm – 32 mm",
-      Length: "12 m standard / custom lengths",
     },
   },
   {

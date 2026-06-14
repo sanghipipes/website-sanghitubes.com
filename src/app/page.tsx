@@ -15,45 +15,6 @@ import { PipeShowcase3D } from '@/components/ui/PipeShowcase3D';
 import { InteractiveProductModel } from '@/components/ui/InteractiveProductModel';
 import { TrustedBrandsMarquee } from '@/components/ui/TrustedBrandsMarquee';
 
-// Curated featured products: flagship first
-const FEATURED_IDS = [
-  'di-double-flange-pipe',  // DI Pipes
-  'ci-double-flange-pipe',  // CI Pipes
-  'sluice-valve',           // Valves
-  'di-specials',            // DI Specials
-  'hdpe-pipes',             // HDPE & Polymer
-  'ms-pipes',               // MS & GI
-];
-
-const featuredProductModelMap: Record<string, { type: string; color: string; metalness: number; roughness: number }> = {
-  // DI Pipes
-  'di-double-flange-pipe':  { type: 'flanged-pipe',    color: '#1a2535', metalness: 0.95, roughness: 0.28 },
-  'di-spun-pipe-ss':        { type: 'ss-pipe',          color: '#1a2535', metalness: 0.95, roughness: 0.28 },
-  // CI Pipes — stockier CI-flanged model; wide lead-caulked socket for S&S
-  'ci-double-flange-pipe':  { type: 'ci-flanged-pipe', color: '#3d3d3d', metalness: 0.60, roughness: 0.62 },
-  'ci-spun-pipe-ss':        { type: 'ci-ss-pipe',      color: '#3d3d3d', metalness: 0.60, roughness: 0.62 },
-  // Valves
-  'sluice-valve':           { type: 'gate-valve',      color: '#1e3a5f', metalness: 0.92, roughness: 0.22 },
-  'air-valve':              { type: 'air-valve',       color: '#2d3748', metalness: 0.85, roughness: 0.30 },
-  'butterfly-valve':        { type: 'butterfly-valve', color: '#1a202c', metalness: 0.90, roughness: 0.25 },
-  'non-return-valve':       { type: 'check-valve',     color: '#2d3748', metalness: 0.88, roughness: 0.28 },
-  // DI Specials
-  'di-specials':            { type: 'pipe-elbow',      color: '#1a2535', metalness: 0.95, roughness: 0.28 },
-  // HDPE & Polymer
-  'hdpe-pipes':             { type: 'hdpe-pipe',       color: '#0d0d0d', metalness: 0,    roughness: 0.70 },
-  'hdpe-specials':          { type: 'pipe-elbow',      color: '#111111', metalness: 0,    roughness: 0.65 },
-  'electrofusion-fittings': { type: 'ef-coupler',      color: '#0a0a0a', metalness: 0,    roughness: 0.72 },
-  'dwc-pipes':              { type: 'dwc-pipe',        color: '#111111', metalness: 0,    roughness: 0.68 },
-  'opvc-pipes-fittings':    { type: 'opvc-pipe',       color: '#e2e8f0', metalness: 0,    roughness: 0.55 },
-  // MS & GI
-  'ms-pipes':               { type: 'ms-pipe',         color: '#2c3e50', metalness: 0.78, roughness: 0.48 },
-  'ms-specials':            { type: 'pipe-elbow',      color: '#2c3e50', metalness: 0.78, roughness: 0.48 },
-  'gi-pipes':               { type: 'gi-pipe',         color: '#b2bec3', metalness: 0.95, roughness: 0.15 },
-  'gi-specials':            { type: 'pipe-elbow',      color: '#b2bec3', metalness: 0.95, roughness: 0.20 },
-  'tmt-bars':               { type: 'tmt-bar',         color: '#374151', metalness: 0.85, roughness: 0.40 },
-  'ms-bolts-nut-bolts':     { type: 'bolt',            color: '#1a1a2e', metalness: 0.95, roughness: 0.15 },
-};
-
 // Clientele preview on homepage — subset of /clients allClients (kept in sync)
 const homepageClients = [
   { abbr: 'SP',    name: 'Shapoorji Pallonji & Co.', sector: 'EPC & Infrastructure', color: 'text-blue-400',    bg: 'bg-blue-500/10'    },
@@ -81,7 +42,7 @@ const categoryCards = [
     desc: 'Centrifugally Cast Grey Iron Pipes',
   },
   {
-    name: 'Valves',
+    name: 'Valves & Specials',
     image: 'https://images.unsplash.com/photo-1553969914-e109f9d0e171?auto=format&fit=crop&q=80&w=800',
     desc: 'Sluice, Butterfly & Air Valves',
   },
@@ -92,7 +53,7 @@ const whyChooseCards = [
   {
     icon: Factory,
     title: '20+ Years DI Manufacturing',
-    desc: 'Industry-leading expertise in centrifugal casting of Ductile Iron Double Flange Pipes — precision engineered to IS:8329 / IS:9523.',
+    desc: 'Industry-leading expertise in Flanging of centrifugally casted ductile iron/ cast iron pipes - precision engineered to IS:8329.',
   },
   {
     icon: ShieldCheck,
@@ -107,7 +68,7 @@ const whyChooseCards = [
   {
     icon: Settings,
     title: 'Modern Facility',
-    desc: 'State-of-the-art centrifugal casting facility in Kanpur, equipped for precision manufacturing at scale.',
+    desc: 'State-of-the-art Flanging facility in Kanpur, equipped for precision manufacturing at scale.',
   },
   {
     icon: Zap,
@@ -122,7 +83,6 @@ const whyChooseCards = [
 ];
 
 export default function Home() {
-  const featuredProducts = FEATURED_IDS.map(id => products.find(p => p.id === id)!).filter(Boolean);
 
   return (
     <div className="bg-background">
@@ -138,10 +98,10 @@ export default function Home() {
                     Precision // Resilience // Quality
                   </span>
                   <h1 className="text-[3rem] md:text-[6rem] font-black text-white tracking-[-0.05em] uppercase italic leading-[0.85]">
-                    SANGHI
+                    SANGHI TUBES
                     <br />
                     <span className="stroke-text text-transparent not-italic block mt-2">
-                      PIPES & TUBES
+                      PRIVATE LIMITED
                     </span>
                   </h1>
                   <div className="flex items-center justify-center gap-8 mt-5">
@@ -278,7 +238,7 @@ export default function Home() {
                   </div>
 
                   <div className="p-8">
-                    <div className="text-[10px] font-black text-primary mb-2 uppercase tracking-[0.2em]">DI Pipes · IS:8329 / IS:9523</div>
+                    <div className="text-[10px] font-black text-primary mb-2 uppercase tracking-[0.2em]">DI Pipes · IS:8329</div>
                     <h3 className="text-3xl font-black text-foreground uppercase italic tracking-tight mb-3">
                       Double Flanged Pipes
                     </h3>
@@ -289,7 +249,7 @@ export default function Home() {
                     </p>
                     <div className="grid grid-cols-3 gap-4 mb-8">
                       {[
-                        { l: 'Size Range', v: 'DN 80–1200' },
+                        { l: 'Size Range', v: 'DN 80–600' },
                         { l: 'Pressure', v: 'K9 / K12' },
                         { l: 'Lining', v: 'Bitumen / Epoxy' },
                       ].map((s) => (
@@ -335,9 +295,8 @@ export default function Home() {
                   </div>
 
                   <div className="p-8">
-                    <div className="text-[10px] font-black text-blue-400 mb-2 uppercase tracking-[0.2em]">HDPE &amp; Polymer · IS:15328 / EN:17176</div>
                     <h3 className="text-3xl font-black text-foreground uppercase italic tracking-tight mb-3">
-                      OPVC Pipes
+                      OPVC Pipes IS:16647
                     </h3>
                     <p className="text-muted-foreground leading-relaxed mb-6">
                       Oriented PVC pressure pipes — superior strength-to-weight ratio versus
@@ -347,8 +306,8 @@ export default function Home() {
                     </p>
                     <div className="grid grid-cols-3 gap-4 mb-8">
                       {[
-                        { l: 'Size Range', v: 'DN 63–315' },
-                        { l: 'Pressure', v: 'PN 10 / PN 16' },
+                        { l: 'Size Range', v: 'DN 110–250' },
+                        { l: 'Pressure', v: 'PN 12.5 / 16 / 20 / 25' },
                         { l: 'Joint', v: 'Push-fit RR' },
                       ].map((s) => (
                         <div key={s.l} className="text-center p-3 bg-muted/20 rounded-xl border border-border/30">
@@ -440,78 +399,6 @@ export default function Home() {
           </StaggerContainer>
         </section>
 
-        {/* ── Featured Products ──────────────────────────────────────────────────── */}
-        <section className="py-32 max-w-7xl mx-auto px-6">
-          <FadeIn>
-            <div className="flex flex-col md:flex-row justify-between items-end mb-20 gap-8">
-              <div className="max-w-2xl">
-                <span className="text-primary font-bold tracking-[0.3em] uppercase text-xs mb-4 block">Product Selection</span>
-                <h2 className="text-5xl md:text-7xl font-black mb-6 italic tracking-tighter uppercase leading-[0.8]">
-                  The <span className="text-primary not-italic">Standard</span> Of Quality
-                </h2>
-                <p className="text-muted-foreground text-xl font-medium leading-relaxed">
-                  From DI Double Flange to OPVC — precision-engineered for India&apos;s most demanding infrastructure.
-                </p>
-              </div>
-              <Link href="/products" className="group flex items-center gap-4 bg-primary text-white px-8 py-4 rounded-full font-bold hover:scale-105 transition-all">
-                View Catalog <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
-              </Link>
-            </div>
-          </FadeIn>
-
-          <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            {featuredProducts.map((product) => {
-              const isOpvc = product.id === 'opvc-pipes-fittings';
-              return (
-                <StaggerItem key={product.id}>
-                  <motion.div
-                    whileHover={{ y: -15 }}
-                    className="bg-card/50 border border-border/30 rounded-[2.5rem] p-8 shadow-2xl hover:border-primary/30 transition-all h-full flex flex-col group relative"
-                  >
-                    {isOpvc && (
-                      <div className="absolute top-6 right-6 z-10">
-                        <motion.span
-                          animate={{ opacity: [1, 0.55, 1] }}
-                          transition={{ repeat: Infinity, duration: 2 }}
-                          className="bg-blue-500 text-white text-[8px] font-black uppercase tracking-[0.15em] px-3 py-1.5 rounded-full"
-                        >
-                          New 2026
-                        </motion.span>
-                      </div>
-                    )}
-                    <div className="aspect-square bg-background rounded-[2rem] mb-8 overflow-hidden relative">
-                      <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity z-10 pointer-events-none" />
-                      {product.image ? (
-                        <Image
-                          src={product.image}
-                          alt={product.name}
-                          fill
-                          sizes="(max-width: 640px) 100vw, 25vw"
-                          className="object-cover rounded-[2rem]"
-                        />
-                      ) : (
-                        <InteractiveProductModel
-                          {...(featuredProductModelMap[product.id] ?? { type: 'ss-pipe', color: '#cbd5e1', metalness: 1, roughness: 0.1 })}
-                        />
-                      )}
-                    </div>
-                    <div className="text-[10px] font-black text-primary mb-2 uppercase tracking-[0.2em]">{product.category}</div>
-                    <h3 className="font-black text-xl mb-6 text-foreground uppercase italic tracking-tight">{product.name}</h3>
-                    <div className="mt-auto">
-                      <Link
-                        href={`/products?id=${product.id}`}
-                        className="w-full py-4 bg-muted/30 border border-border/50 text-foreground font-bold rounded-2xl hover:bg-primary hover:border-primary hover:text-white transition-all text-center block text-sm uppercase tracking-widest"
-                      >
-                        View Details
-                      </Link>
-                    </div>
-                  </motion.div>
-                </StaggerItem>
-              );
-            })}
-          </StaggerContainer>
-        </section>
-
         {/* ── Esteemed Clientele Preview ────────────────────────────────────────── */}
         <section className="py-32 max-w-7xl mx-auto px-6 relative">
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-px h-32 bg-gradient-to-b from-primary to-transparent" />
@@ -574,7 +461,7 @@ export default function Home() {
                   Built on <span className="text-primary not-italic">Trust</span> and Quality
                 </h2>
                 <p className="text-muted-foreground mb-12 leading-relaxed text-xl font-medium">
-                  Sanghi Pipes &amp; Tubes has received the prestigious BIS Licence from the Bureau of
+                  Sanghi Pipes &amp; Tubes has received the prestigious Licence from the Bureau of
                   Indian Standards. We are recognised as one of India&apos;s most reliable manufacturers
                   of Centrifugally Cast Ductile Iron Double Flange Pipes — now expanding into OPVC
                   with the same commitment to engineering precision.
@@ -654,7 +541,7 @@ export default function Home() {
                 className="text-muted-foreground text-lg mt-2 max-w-2xl mx-auto leading-relaxed"
               >
                 Supplying water utilities, municipalities, and infrastructure contractors across India.
-                BIS-licensed DI pipes, cast iron fittings, and precision valves — ISO 9001 certified,
+                BIS-licensed pipes, fittings, and precision valves — ISO 9001 certified,
                 every batch tested, and ready for dispatch.
               </motion.p>
             </div>
@@ -724,36 +611,36 @@ export default function Home() {
                   },
                   {
                     Icon: Wrench,
-                    cat: 'DI Specials',
+                    cat: 'CI/DI Specials',
                     spec: 'DN 80–1200 mm',
                     isStd: 'IS 9523',
                     gradient: 'from-indigo-500/8 to-transparent',
                     accent: 'text-indigo-400',
                     accentBg: 'bg-indigo-400/10',
                     accentGlow: 'rgba(129,140,248,0.4)',
-                    items: ['Bends (11°–90°)', 'Tees & Reducers', 'Flanged Adaptors', 'Dismantling Joints'],
+                    items: ['Bends (11°–90°)', 'Tees & Reducers', 'Flanged Adaptors', 'Dismantling Joints', 'M.J. Collar'],
                   },
                   {
                     Icon: Waves,
-                    cat: 'HDPE & Polymer',
+                    cat: 'OPVC & HDPE',
                     spec: 'DN 20–630 mm',
                     isStd: 'IS 4984',
                     gradient: 'from-emerald-500/8 to-transparent',
                     accent: 'text-emerald-400',
                     accentBg: 'bg-emerald-400/10',
                     accentGlow: 'rgba(52,211,153,0.4)',
-                    items: ['HDPE Pipes', 'HDPE Specials', 'Electrofusion Fittings', 'DWC Pipes', 'OPVC Pipes'],
+                    items: ['HDPE Pipes', 'HDPE Specials', 'Electrofusion Fittings', 'DWC Pipes', 'OPVC Pipes', 'OPVC Specials'],
                   },
                   {
                     Icon: Factory,
-                    cat: 'MS & GI',
-                    spec: 'NB 15–1200 mm',
+                    cat: 'Others',
+                    spec: 'NB 15–1600 mm',
                     isStd: 'IS 1239',
                     gradient: 'from-orange-500/8 to-transparent',
                     accent: 'text-orange-400',
                     accentBg: 'bg-orange-400/10',
                     accentGlow: 'rgba(251,146,60,0.4)',
-                    items: ['M.S. Pipes', 'M.S. Specials', 'G.I. Pipes', 'G.I. Specials', 'TMT Bars', 'MS Bolts'],
+                    items: ['M.S. Pipes', 'M.S. Specials', 'G.I. Pipes', 'G.I. Specials', 'TMT Bars', 'MS Bolts', 'G.I. Bolts'],
                   },
                 ].map((item, i) => (
                   <motion.div
@@ -808,7 +695,7 @@ export default function Home() {
               {/* Stats row */}
               <div className="grid grid-cols-3 md:grid-cols-6 gap-2 shrink-0">
                 {[
-                  { label: 'Experience', value: '50+ Yrs' },
+                  { label: 'Experience', value: '50+ Years' },
                   { label: 'Products', value: '500+' },
                   { label: 'Clients', value: '1,200+' },
                   { label: 'Certified', value: 'BIS/ISO' },

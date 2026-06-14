@@ -7,7 +7,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Search, Check, Info, ChevronRight } from 'lucide-react';
 import { products, categories, Product } from '@/data/products';
 import { useQuote } from '@/context/QuoteContext';
-import { cn } from '@/lib/utils';
+import { cn, truncate } from '@/lib/utils';
 import { FadeIn } from '@/components/ui/FadeIn';
 import { InteractiveProductModel } from '@/components/ui/InteractiveProductModel';
 
@@ -23,8 +23,8 @@ function getProductModelProps(product: Product) {
     'non-return-valve':       { type: 'check-valve',     color: '#1e3a5f', metalness: 0.92, roughness: 0.28 },
     'di-specials':            { type: 'pipe-tee',        color: '#1a2535', metalness: 0.95, roughness: 0.28 },
     'hdpe-pipes':             { type: 'hdpe-pipe',       color: '#0f172a', metalness: 0,    roughness: 0.75 },
-    'hdpe-specials':          { type: 'hdpe-elbow',      color: '#0f172a', metalness: 0,    roughness: 0.75 },
-    'electrofusion-fittings': { type: 'ef-coupler',      color: '#0f172a', metalness: 0,    roughness: 0.7  },
+    'hdpe-specials':          { type: 'ef-coupler',      color: '#0f172a', metalness: 0,    roughness: 0.75 },
+    'electrofusion-fittings': { type: 'ef-coupler-coiled', color: '#0f172a', metalness: 0,  roughness: 0.7  },
     'dwc-pipes':              { type: 'dwc-pipe',        color: '#111827', metalness: 0,    roughness: 0.8  },
     'opvc-pipes-fittings':    { type: 'opvc-pipe',       color: '#e2e8f0', metalness: 0,    roughness: 0.55 },
     'ms-pipes':               { type: 'ms-pipe',         color: '#2c3e50', metalness: 0.78, roughness: 0.48 },
@@ -182,9 +182,11 @@ function ProductsContent() {
                   <h3 className="text-2xl font-black mb-3 group-hover:text-primary transition-colors tracking-tight italic uppercase">
                     {product.name}
                   </h3>
-                  <p className="text-muted-foreground text-sm mb-8 leading-relaxed line-clamp-2">
-                    {product.description}
-                  </p>
+                  {product.description && (
+                    <p className="text-muted-foreground text-sm mb-8 leading-relaxed">
+                      {truncate(product.description, 115)}
+                    </p>
+                  )}
 
                   <AnimatePresence>
                     {selectedProductId === product.id && (

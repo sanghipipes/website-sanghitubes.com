@@ -8,7 +8,7 @@ export const Logo = ({ className }: { className?: string }) => {
       <div className="relative h-10 w-10 flex-shrink-0 overflow-hidden rounded-lg bg-white shadow-sm">
         <Image
           src="/spt-logo.png"
-          alt="Sanghi Pipes & Tubes"
+          alt="Sanghi Tubes Private Limited"
           fill
           sizes="40px"
           className="object-contain"
@@ -17,10 +17,10 @@ export const Logo = ({ className }: { className?: string }) => {
       </div>
       <div>
         <div className="font-black text-xl leading-none tracking-tighter text-foreground group-hover:text-primary transition-colors">
-          SANGHI
+          SANGHI TUBES
         </div>
         <div className="text-[10px] font-bold tracking-[0.2em] text-muted-foreground uppercase">
-          Pipes &amp; Tubes
+          Private Limited
         </div>
       </div>
     </div>

@@ -440,10 +440,10 @@ export const PipeShowcase3D = () => {
                 Precision // Resilience // Quality
               </span>
               <h1 className="text-[3rem] md:text-[6rem] font-black text-white mix-blend-difference tracking-[-0.05em] uppercase italic leading-[0.85]">
-                SANGHI
+                SANGHI TUBES
                 <br />
                 <span className="stroke-text text-transparent not-italic block mt-2">
-                  PIPES & TUBES
+                  PRIVATE LIMITED
                 </span>
               </h1>
               <div className="flex items-center justify-center gap-8 mt-5">
@@ -475,9 +475,7 @@ export const PipeShowcase3D = () => {
                 <span className="text-primary not-italic">Flanged</span>
               </h2>
               <p className="text-muted-foreground text-xl mb-4 leading-relaxed font-medium">
-                20+ years of centrifugal casting expertise. Our DI Double Flange Pipes combine
-                tensile strength with precision-machined flanged ends — engineered for pump houses,
-                bridge crossings, and critical installations.
+                20+ Years of Experience in flanging of pipes
               </p>
               <div className="grid grid-cols-2 gap-6">
                 {[
@@ -549,7 +547,7 @@ export const PipeShowcase3D = () => {
                   <div className="text-[8px] text-primary font-black uppercase tracking-widest mb-1">
                     Joint
                   </div>
-                  <div className="text-xs text-muted-foreground font-medium">Push-on Tyton</div>
+                  <div className="text-xs text-muted-foreground font-medium">Flanged joint</div>
                 </div>
               </div>
             </div>
@@ -573,9 +571,9 @@ export const PipeShowcase3D = () => {
               </p>
               <div className="flex flex-wrap justify-center gap-14">
                 {[
-                  { l: 'Industry Experience', v: '50+ Yrs' },
+                  { l: 'Industry Experience', v: '50+ Years' },
                   { l: 'Quality Audits', v: '100%' },
-                  { l: 'Service Life', v: '100+ Yrs' },
+                  { l: 'Service Life', v: '100+ Years' },
                 ].map((s) => (
                   <div key={s.l}>
                     <div className="text-4xl md:text-5xl font-black text-foreground mb-2 italic tracking-tighter">

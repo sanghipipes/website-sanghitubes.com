@@ -26,7 +26,7 @@ export default function AboutPage() {
             </h1>
             <p className="text-xl text-muted-foreground leading-relaxed">
               Sanghi Pipes &amp; Tubes, based in Kanpur, Uttar Pradesh, is a specialist manufacturer
-              of Centrifugally Cast Ductile Iron Double Flange Pipes — and an emerging producer of
+              of Centrifugally Cast D.I. / C.I. Double Flange Pipes — and an emerging producer of
               OPVC pressure pipes for India&apos;s next generation of water infrastructure.
             </p>
           </div>
@@ -70,15 +70,15 @@ export default function AboutPage() {
               <h2 className="text-3xl font-bold mb-6">Our Journey</h2>
               <div className="space-y-6 text-muted-foreground text-lg leading-relaxed">
                 <p>
-                  With over 20 years of focused expertise in centrifugal casting, we manufacture
-                  Ductile Iron Double Flange Pipes to IS:8329/IS:9523 at our dedicated facility
+                  With over 20 years of focused expertise in Flanging, we manufacture
+                  D.I. / C.I. Double Flange Pipes to IS:8329 at our dedicated facility
                   in Kanpur. Every pipe is precision-machined for leak-proof flanged seating, built
                   for pump houses, bridge crossings, and critical water infrastructure.
                 </p>
                 <p>
-                  As a recipient of the prestigious BIS Licence from the Bureau of Indian Standards,
+                  As a recipient of the prestigious Licence from the Bureau of Indian Standards,
                   we are recognised as one of India&apos;s most reliable manufacturers of Centrifugally
-                  Cast DI Double Flange Pipes. In 2026, we are expanding our capabilities with the
+                  Cast D.I. / C.I. Double Flange Pipes. In 2026, we are expanding our capabilities with the
                   launch of OPVC (Oriented PVC) pressure pipes — combining our legacy of manufacturing
                   precision with next-generation pipe technology.
                 </p>
@@ -126,7 +126,7 @@ export default function AboutPage() {
             {
               icon: <Factory className="text-primary" size={40} />,
               title: '20+ Years DI Manufacturing',
-              desc: 'Two decades of centrifugal casting expertise. Our DI Double Flange Pipes set the standard for precision and reliability in India.',
+              desc: 'Two decades of Manufacturing expertise. Our Double Flanged Pipes set the standard for precision and reliability in India.',
             },
             {
               icon: <Target className="text-primary" size={40} />,

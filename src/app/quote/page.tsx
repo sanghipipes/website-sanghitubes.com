@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Trash2, ArrowLeft, Send, CheckCircle2, ShoppingBag, AlertCircle } from 'lucide-react';
 import { useQuote } from '@/context/QuoteContext';
-import { cn } from '@/lib/utils';
+import { cn, truncate } from '@/lib/utils';
 import { FadeIn } from '@/components/ui/FadeIn';
 import { TurnstileWidget } from '@/components/ui/TurnstileWidget';
 import { submitQuoteAction } from '@/actions/quote';
@@ -187,7 +187,7 @@ export default function QuotePage() {
                           {item.category}
                         </div>
                         <h3 className="font-bold text-lg">{item.name}</h3>
-                        <p className="text-sm text-muted-foreground line-clamp-1">{item.description}</p>
+                        <p className="text-sm text-muted-foreground line-clamp-1">{truncate(item.description, 70)}</p>
                       </div>
                       <div className="flex items-center gap-4">
                         <div className="flex items-center border border-border rounded-lg bg-muted/30 p-1">

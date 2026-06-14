@@ -34,21 +34,67 @@ function useMat(color: string, metalness: number, roughness: number) {
   );
 }
 
+// Dark interior material for hollow pipe bores — a deep, matte shade derived from the
+// pipe colour, double-sided so the inner wall and end-rims render from any angle.
+function useBoreMat(color: string) {
+  return useMemo(
+    () =>
+      new THREE.MeshStandardMaterial({
+        color: new THREE.Color(color).multiplyScalar(0.3),
+        roughness: 0.9,
+        metalness: 0.2,
+        side: THREE.DoubleSide,
+      }),
+    [color],
+  );
+}
+
 // ── Shared flange disk — defined at module level so React reference is stable ──
+// When `boreR`/`boreMat` are supplied the flange face is annular (open bore through the
+// centre) so the pipe reads as genuinely hollow; otherwise it stays a solid disk.
 function FlangeDisk({
   y,
   mat,
   boltMat,
+  boreR,
+  boreMat,
 }: {
   y: number;
   mat: THREE.MeshPhysicalMaterial;
   boltMat: THREE.MeshPhysicalMaterial;
+  boreR?: number;
+  boreMat?: THREE.Material;
 }) {
+  // Double-sided clone of the flange material so the annular face renders from any angle.
+  const faceMat = useMemo(() => {
+    const m = mat.clone();
+    m.side = THREE.DoubleSide;
+    return m;
+  }, [mat]);
   return (
     <group position={[0, y, 0]}>
-      <mesh material={mat}>
-        <cylinderGeometry args={[0.7, 0.7, 0.2, 48]} />
-      </mesh>
+      {boreR != null && boreMat ? (
+        <>
+          {/* Outer rim of the flange ring */}
+          <mesh material={mat}>
+            <cylinderGeometry args={[0.7, 0.7, 0.2, 48, 1, true]} />
+          </mesh>
+          {/* Bore wall through the flange */}
+          <mesh material={boreMat}>
+            <cylinderGeometry args={[boreR, boreR, 0.2, 48, 1, true]} />
+          </mesh>
+          {/* Annular front/back faces showing the bolt-flange face with a hole */}
+          {([0.1, -0.1] as number[]).map((dy, i) => (
+            <mesh key={i} material={faceMat} position={[0, dy, 0]} rotation={[Math.PI / 2, 0, 0]}>
+              <ringGeometry args={[boreR, 0.7, 48]} />
+            </mesh>
+          ))}
+        </>
+      ) : (
+        <mesh material={mat}>
+          <cylinderGeometry args={[0.7, 0.7, 0.2, 48]} />
+        </mesh>
+      )}
       {Array.from({ length: 8 }).map((_, i) => {
         const a = (i / 8) * Math.PI * 2;
         return (
@@ -61,28 +107,75 @@ function FlangeDisk({
   );
 }
 
+// ── Reusable hollow pipe barrel ───────────────────────────────────────────────
+// Outer wall + dark inner bore wall (visible looking into the pipe) + an annular rim at
+// each open end showing wall thickness. Generalises the open-barrel + bore-face pattern
+// already used by MSPipe so every pipe model reads as a real, hollow length of pipe.
+function HollowBarrel({
+  outerR,
+  innerR,
+  height,
+  segments = 48,
+  mat,
+  boreMat,
+  openTop = true,
+  openBottom = true,
+}: {
+  outerR: number;
+  innerR: number;
+  height: number;
+  segments?: number;
+  mat: THREE.MeshPhysicalMaterial;
+  boreMat: THREE.Material;
+  openTop?: boolean;
+  openBottom?: boolean;
+}) {
+  return (
+    <group>
+      {/* Outer wall */}
+      <mesh material={mat}>
+        <cylinderGeometry args={[outerR, outerR, height, segments, 1, true]} />
+      </mesh>
+      {/* Inner bore wall */}
+      <mesh material={boreMat}>
+        <cylinderGeometry args={[innerR, innerR, height, segments, 1, true]} />
+      </mesh>
+      {/* Annular rim at each open end */}
+      {openTop && (
+        <mesh material={boreMat} position={[0, height / 2, 0]} rotation={[Math.PI / 2, 0, 0]}>
+          <ringGeometry args={[innerR, outerR, segments]} />
+        </mesh>
+      )}
+      {openBottom && (
+        <mesh material={boreMat} position={[0, -height / 2, 0]} rotation={[Math.PI / 2, 0, 0]}>
+          <ringGeometry args={[innerR, outerR, segments]} />
+        </mesh>
+      )}
+    </group>
+  );
+}
+
 // ── Flanged Pipe (DI/CI Double Flange) ────────────────────────────────────────
 function FlangedPipe({ color, metalness, roughness }: { color: string; metalness: number; roughness: number }) {
   const ref = useRef<THREE.Group>(null);
   const mat = useMat(color, metalness, roughness);
+  const boreMat = useBoreMat(color);
   const boltMat = useMemo(() => new THREE.MeshPhysicalMaterial({ color: '#0f172a', metalness: 1, roughness: 0.2 }), []);
 
   useFrame((_, delta) => { if (ref.current) ref.current.rotation.y += delta * 0.42; });
 
   return (
     <group ref={ref} scale={0.88}>
-      {/* Main barrel — elongated for realism */}
-      <mesh material={mat}>
-        <cylinderGeometry args={[0.42, 0.42, 3.2, 48, 1, true]} />
-      </mesh>
-      {/* Bevel collars at each end (transition from barrel to flange) */}
+      {/* Main barrel — elongated for realism, hollow bore */}
+      <HollowBarrel outerR={0.42} innerR={0.35} height={3.2} mat={mat} boreMat={boreMat} />
+      {/* Bevel collars at each end (transition from barrel to flange) — open so bore stays clear */}
       {([-1.6, 1.6] as number[]).map((y, i) => (
         <mesh key={i} material={mat} position={[0, y, 0]}>
-          <cylinderGeometry args={[0.55, 0.42, 0.12, 48]} />
+          <cylinderGeometry args={[0.55, 0.42, 0.12, 48, 1, true]} />
         </mesh>
       ))}
-      <FlangeDisk y={1.7} mat={mat} boltMat={boltMat} />
-      <FlangeDisk y={-1.7} mat={mat} boltMat={boltMat} />
+      <FlangeDisk y={1.7} mat={mat} boltMat={boltMat} boreR={0.35} boreMat={boreMat} />
+      <FlangeDisk y={-1.7} mat={mat} boltMat={boltMat} boreR={0.35} boreMat={boreMat} />
     </group>
   );
 }
@@ -91,24 +184,23 @@ function FlangedPipe({ color, metalness, roughness }: { color: string; metalness
 function CIFlangedPipe({ color, metalness, roughness }: { color: string; metalness: number; roughness: number }) {
   const ref = useRef<THREE.Group>(null);
   const mat = useMat(color, metalness, roughness);
+  const boreMat = useBoreMat(color);
   const boltMat = useMemo(() => new THREE.MeshPhysicalMaterial({ color: '#1a1a1a', metalness: 0.9, roughness: 0.3 }), []);
 
   useFrame((_, delta) => { if (ref.current) ref.current.rotation.y += delta * 0.42; });
 
   return (
     <group ref={ref} scale={0.88}>
-      {/* Shorter, stockier barrel — CI pipes are chunkier */}
-      <mesh material={mat}>
-        <cylinderGeometry args={[0.45, 0.45, 2.4, 48, 1, true]} />
-      </mesh>
-      {/* Double bevel collar per end — heavier CI casting look */}
+      {/* Shorter, stockier barrel — CI pipes are chunkier, hollow bore */}
+      <HollowBarrel outerR={0.45} innerR={0.38} height={2.4} mat={mat} boreMat={boreMat} />
+      {/* Double bevel collar per end — heavier CI casting look, open so bore stays clear */}
       {([-1.2, 1.2] as number[]).map((y, i) => (
         <group key={i}>
           <mesh material={mat} position={[0, y, 0]}>
-            <cylinderGeometry args={[0.58, 0.45, 0.13, 48]} />
+            <cylinderGeometry args={[0.58, 0.45, 0.13, 48, 1, true]} />
           </mesh>
           <mesh material={mat} position={[0, y + (i === 1 ? 0.12 : -0.12), 0]}>
-            <cylinderGeometry args={[0.65, 0.58, 0.1, 48]} />
+            <cylinderGeometry args={[0.65, 0.58, 0.1, 48, 1, true]} />
           </mesh>
         </group>
       ))}
@@ -116,8 +208,8 @@ function CIFlangedPipe({ color, metalness, roughness }: { color: string; metalne
       <mesh material={mat} position={[0, 0, 0]}>
         <torusGeometry args={[0.48, 0.055, 16, 48]} />
       </mesh>
-      <FlangeDisk y={1.43}  mat={mat} boltMat={boltMat} />
-      <FlangeDisk y={-1.43} mat={mat} boltMat={boltMat} />
+      <FlangeDisk y={1.43}  mat={mat} boltMat={boltMat} boreR={0.38} boreMat={boreMat} />
+      <FlangeDisk y={-1.43} mat={mat} boltMat={boltMat} boreR={0.38} boreMat={boreMat} />
     </group>
   );
 }
@@ -126,15 +218,14 @@ function CIFlangedPipe({ color, metalness, roughness }: { color: string; metalne
 function CISSPipe({ color, metalness, roughness }: { color: string; metalness: number; roughness: number }) {
   const ref = useRef<THREE.Group>(null);
   const mat = useMat(color, metalness, roughness);
+  const boreMat = useBoreMat(color);
 
   useFrame((_, delta) => { if (ref.current) ref.current.rotation.y += delta * 0.42; });
 
   return (
     <group ref={ref} scale={0.88}>
-      {/* Barrel — slightly wider than DI S&S */}
-      <mesh material={mat}>
-        <cylinderGeometry args={[0.42, 0.42, 2.6, 64, 1, true]} />
-      </mesh>
+      {/* Barrel — slightly wider than DI S&S, hollow bore (open spigot end) */}
+      <HollowBarrel outerR={0.42} innerR={0.35} height={2.6} segments={64} mat={mat} boreMat={boreMat} openTop={false} />
       {/* Wide, boxy socket bell — lead-caulked joint is wider/flatter than Tyton */}
       <mesh material={mat} position={[0, 1.3, 0]}>
         <cylinderGeometry args={[0.72, 0.42, 0.45, 64]} />
@@ -147,10 +238,6 @@ function CISSPipe({ color, metalness, roughness }: { color: string; metalness: n
       <mesh material={mat} position={[0, 1.075, 0]}>
         <torusGeometry args={[0.5, 0.045, 16, 64]} />
       </mesh>
-      {/* Spigot end cap */}
-      <mesh material={mat} position={[0, -1.3, 0]}>
-        <cylinderGeometry args={[0.42, 0.42, 0.05, 64]} />
-      </mesh>
     </group>
   );
 }
@@ -159,24 +246,20 @@ function CISSPipe({ color, metalness, roughness }: { color: string; metalness: n
 function SSPipe({ color, metalness, roughness }: { color: string; metalness: number; roughness: number }) {
   const ref = useRef<THREE.Group>(null);
   const mat = useMat(color, metalness, roughness);
+  const boreMat = useBoreMat(color);
 
   useFrame((_, delta) => { if (ref.current) ref.current.rotation.y += delta * 0.42; });
 
   return (
     <group ref={ref} scale={0.88}>
-      <mesh material={mat}>
-        <cylinderGeometry args={[0.4, 0.4, 2.8, 64, 1, true]} />
-      </mesh>
+      {/* Barrel — hollow bore, open at the spigot end */}
+      <HollowBarrel outerR={0.4} innerR={0.33} height={2.8} segments={64} mat={mat} boreMat={boreMat} openTop={false} />
       {/* Bell / socket end */}
       <mesh material={mat} position={[0, 1.4, 0]}>
         <cylinderGeometry args={[0.56, 0.4, 0.38, 64]} />
       </mesh>
       <mesh material={mat} position={[0, 1.59, 0]}>
         <cylinderGeometry args={[0.56, 0.56, 0.1, 64, 1, true]} />
-      </mesh>
-      {/* Spigot end cap */}
-      <mesh material={mat} position={[0, -1.4, 0]}>
-        <cylinderGeometry args={[0.4, 0.4, 0.05, 64]} />
       </mesh>
     </group>
   );
@@ -240,37 +323,52 @@ function AirValve({ color, metalness, roughness }: { color: string; metalness: n
   const mat = useMat(color, metalness, roughness);
   const capMat = useMemo(() => new THREE.MeshPhysicalMaterial({ color: '#f59e0b', metalness: 0.8, roughness: 0.3 }), []);
 
+  const boltMat = useMemo(() => new THREE.MeshPhysicalMaterial({ color: '#0f172a', metalness: 1, roughness: 0.25 }), []);
+
   useFrame((_, delta) => { if (ref.current) ref.current.rotation.y += delta * 0.5; });
 
   return (
-    <group ref={ref} scale={0.85}>
-      {/* Cylindrical body */}
+    <group ref={ref} scale={0.78}>
+      {/* Tall cylindrical pressure-vessel body */}
       <mesh material={mat}>
-        <cylinderGeometry args={[0.38, 0.38, 0.95, 32]} />
+        <cylinderGeometry args={[0.4, 0.4, 1.25, 40]} />
       </mesh>
-      {/* Dome top — hemisphere sealing the pressure vessel */}
-      <mesh material={mat} position={[0, 0.475, 0]}>
-        <sphereGeometry args={[0.38, 32, 16, 0, Math.PI * 2, 0, Math.PI / 2]} />
+      {/* Hemispherical dome sealing the top */}
+      <mesh material={mat} position={[0, 0.625, 0]}>
+        <sphereGeometry args={[0.4, 40, 20, 0, Math.PI * 2, 0, Math.PI / 2]} />
       </mesh>
-      {/* Orifice boss — small raised boss on dome */}
-      <mesh material={mat} position={[0, 0.86, 0]}>
-        <cylinderGeometry args={[0.10, 0.14, 0.16, 16]} />
+      {/* Orifice cover housing (cowl) on top of the dome */}
+      <mesh material={mat} position={[0, 0.96, 0]}>
+        <cylinderGeometry args={[0.17, 0.2, 0.22, 24]} />
       </mesh>
-      {/* Orifice cap — small amber ball at very top */}
-      <mesh material={capMat} position={[0, 0.96, 0]}>
-        <sphereGeometry args={[0.065, 12, 12]} />
+      {/* Cover cap */}
+      <mesh material={mat} position={[0, 1.09, 0]}>
+        <cylinderGeometry args={[0.19, 0.19, 0.05, 24]} />
       </mesh>
-      {/* Bottom collar — tapers to flange */}
-      <mesh material={mat} position={[0, -0.54, 0]}>
-        <cylinderGeometry args={[0.48, 0.38, 0.10, 32]} />
+      {/* Vent nozzle (amber) at the very top */}
+      <mesh material={capMat} position={[0, 1.17, 0]}>
+        <cylinderGeometry args={[0.05, 0.07, 0.11, 16]} />
       </mesh>
-      {/* Bottom flange */}
-      <mesh material={mat} position={[0, -0.62, 0]}>
-        <cylinderGeometry args={[0.52, 0.52, 0.12, 32]} />
+      {/* Tapered collar down to the base flange */}
+      <mesh material={mat} position={[0, -0.69, 0]}>
+        <cylinderGeometry args={[0.5, 0.4, 0.14, 40]} />
       </mesh>
-      {/* Inlet stub */}
-      <mesh material={mat} position={[0, -0.78, 0]}>
-        <cylinderGeometry args={[0.18, 0.18, 0.24, 16]} />
+      {/* Base flange */}
+      <mesh material={mat} position={[0, -0.81, 0]}>
+        <cylinderGeometry args={[0.58, 0.58, 0.1, 40]} />
+      </mesh>
+      {/* Flange bolts */}
+      {Array.from({ length: 6 }).map((_, i) => {
+        const a = (i / 6) * Math.PI * 2;
+        return (
+          <mesh key={i} material={boltMat} position={[Math.cos(a) * 0.47, -0.81, Math.sin(a) * 0.47]}>
+            <cylinderGeometry args={[0.03, 0.03, 0.14, 8]} />
+          </mesh>
+        );
+      })}
+      {/* Inlet stub below the flange */}
+      <mesh material={mat} position={[0, -0.93, 0]}>
+        <cylinderGeometry args={[0.2, 0.2, 0.16, 24]} />
       </mesh>
     </group>
   );
@@ -398,27 +496,20 @@ function PipeElbow({ color, metalness, roughness }: { color: string; metalness: 
 function HDPEPipe({ color, metalness, roughness }: { color: string; metalness: number; roughness: number }) {
   const ref = useRef<THREE.Group>(null);
   const mat = useMat(color, metalness, roughness);
+  const boreMat = useBoreMat(color);
   const stripeMat = useMemo(() => new THREE.MeshPhysicalMaterial({ color: '#2563eb', metalness: 0, roughness: 0.6 }), []);
 
   useFrame((_, delta) => { if (ref.current) ref.current.rotation.y += delta * 0.42; });
 
   return (
     <group ref={ref} scale={0.88} rotation={[Math.PI / 10, 0, 0]}>
-      {/* Main barrel */}
-      <mesh material={mat}>
-        <cylinderGeometry args={[0.44, 0.44, 3.0, 48, 1, true]} />
-      </mesh>
+      {/* Main barrel — hollow bore */}
+      <HollowBarrel outerR={0.44} innerR={0.37} height={3.0} mat={mat} boreMat={boreMat} />
       {/* Blue longitudinal stripes */}
       {[0, (2 * Math.PI) / 3, (4 * Math.PI) / 3].map((angle, i) => (
         <mesh key={i} material={stripeMat}
           position={[Math.cos(angle) * 0.453, 0, Math.sin(angle) * 0.453]}>
           <boxGeometry args={[0.022, 3.0, 0.022]} />
-        </mesh>
-      ))}
-      {/* End rings */}
-      {([-1.5, 1.5] as const).map((y, i) => (
-        <mesh key={i} material={mat} position={[0, y, 0]}>
-          <cylinderGeometry args={[0.44, 0.44, 0.04, 48]} />
         </mesh>
       ))}
     </group>
@@ -429,6 +520,7 @@ function HDPEPipe({ color, metalness, roughness }: { color: string; metalness: n
 function EFCoupler({ color, metalness, roughness }: { color: string; metalness: number; roughness: number }) {
   const ref = useRef<THREE.Group>(null);
   const mat = useMat(color, metalness, roughness);
+  const boreMat = useBoreMat(color);
   const wireMat = useMemo(() => new THREE.MeshPhysicalMaterial({
     color: '#60a5fa',
     metalness: 1,
@@ -441,20 +533,12 @@ function EFCoupler({ color, metalness, roughness }: { color: string; metalness: 
 
   return (
     <group ref={ref} scale={0.9} rotation={[Math.PI / 8, 0, 0]}>
-      {/* Body */}
-      <mesh material={mat}>
-        <cylinderGeometry args={[0.52, 0.52, 1.75, 48, 1, true]} />
-      </mesh>
+      {/* Body — hollow bore */}
+      <HollowBarrel outerR={0.52} innerR={0.45} height={1.75} mat={mat} boreMat={boreMat} />
       {/* Embedded EF coil rings */}
       {Array.from({ length: 9 }).map((_, i) => (
         <mesh key={i} material={wireMat} position={[0, -0.72 + i * 0.18, 0]} rotation={[Math.PI / 2, 0, 0]}>
           <torusGeometry args={[0.5, 0.014, 8, 48]} />
-        </mesh>
-      ))}
-      {/* End rings */}
-      {([-0.875, 0.875] as const).map((y, i) => (
-        <mesh key={i} material={mat} position={[0, y, 0]}>
-          <cylinderGeometry args={[0.52, 0.52, 0.055, 48]} />
         </mesh>
       ))}
       {/* Terminal pins */}
@@ -467,11 +551,59 @@ function EFCoupler({ color, metalness, roughness }: { color: string; metalness: 
   );
 }
 
+// ── Electrofusion Coupler — visible heating coils (raised bands proud of body) ─
+function EFCouplerCoiled({ color, metalness, roughness }: { color: string; metalness: number; roughness: number }) {
+  const ref = useRef<THREE.Group>(null);
+  const mat = useMat(color, metalness, roughness);
+  const wireMat = useMemo(() => new THREE.MeshPhysicalMaterial({
+    color: '#60a5fa', metalness: 1, roughness: 0.1, emissive: '#3b82f6', emissiveIntensity: 0.85,
+  }), []);
+
+  useFrame((_, delta) => { if (ref.current) ref.current.rotation.y += delta * 0.45; });
+
+  return (
+    <group ref={ref} scale={0.9} rotation={[Math.PI / 8, 0, 0]}>
+      {/* Coupler body */}
+      <mesh material={mat}>
+        <cylinderGeometry args={[0.5, 0.5, 1.75, 48, 1, true]} />
+      </mesh>
+      {/* Two heating-coil zones — raised blue bands proud of the body, so they read as EF coils */}
+      {([-0.42, 0.42] as number[]).map((cy, zi) => (
+        <group key={zi} position={[0, cy, 0]}>
+          {Array.from({ length: 5 }).map((_, j) => (
+            <mesh key={j} material={wireMat} position={[0, -0.16 + j * 0.08, 0]} rotation={[Math.PI / 2, 0, 0]}>
+              <torusGeometry args={[0.525, 0.022, 8, 56]} />
+            </mesh>
+          ))}
+        </group>
+      ))}
+      {/* Centre register stop */}
+      <mesh material={mat}>
+        <torusGeometry args={[0.515, 0.04, 16, 56]} />
+      </mesh>
+      {/* End collars */}
+      {([-0.86, 0.86] as number[]).map((y, i) => (
+        <mesh key={i} material={mat} position={[0, y, 0]}>
+          <cylinderGeometry args={[0.53, 0.5, 0.08, 48]} />
+        </mesh>
+      ))}
+      {/* Terminal posts */}
+      {([-0.14, 0.14] as number[]).map((x, i) => (
+        <mesh key={i} material={wireMat} position={[x, 0.95, 0.5]}>
+          <cylinderGeometry args={[0.04, 0.04, 0.18, 8]} />
+        </mesh>
+      ))}
+    </group>
+  );
+}
+
 // ── DWC (Double Wall Corrugated) Pipe ─────────────────────────────────────────
 function DWCPipe({ color, metalness, roughness }: { color: string; metalness: number; roughness: number }) {
   const ref = useRef<THREE.Group>(null);
   const outerMat = useMat(color, metalness, roughness);
-  const innerMat = useMemo(() => new THREE.MeshPhysicalMaterial({ color: '#e2e8f0', metalness: 0, roughness: 0.55 }), []);
+  // Orange inner wall (matches the "Black Outer / Orange Inner" spec); DoubleSide so the
+  // smooth bore is visible looking into the open ends — reads hollow.
+  const innerMat = useMemo(() => new THREE.MeshPhysicalMaterial({ color: '#f97316', metalness: 0, roughness: 0.55, side: THREE.DoubleSide }), []);
 
   useFrame((_, delta) => { if (ref.current) ref.current.rotation.y += delta * 0.38; });
 
@@ -497,6 +629,7 @@ function OPVCPipe({ color, metalness, roughness }: { color: string; metalness: n
   // Industry OPVC: light grey/cream body
   const bodyColor = color === '#cbd5e1' || color === '#e2e8f0' ? color : '#dde3ea';
   const mat = useMat(bodyColor, metalness, roughness);
+  const boreMat = useBoreMat(bodyColor);
   // Blue-grey pressure-class band (characteristic of OPVC)
   const bandMat = useMemo(() => new THREE.MeshPhysicalMaterial({ color: '#4b80a0', metalness: 0, roughness: 0.6 }), []);
   // Rubber ring seal (dark grey)
@@ -506,10 +639,8 @@ function OPVCPipe({ color, metalness, roughness }: { color: string; metalness: n
 
   return (
     <group ref={ref} scale={0.88}>
-      {/* Main barrel */}
-      <mesh material={mat}>
-        <cylinderGeometry args={[0.41, 0.41, 2.6, 48, 1, true]} />
-      </mesh>
+      {/* Main barrel — hollow bore, open at the spigot end */}
+      <HollowBarrel outerR={0.41} innerR={0.34} height={2.6} mat={mat} boreMat={boreMat} openTop={false} />
       {/* Push-fit socket end (bell) — flares out at the top */}
       <mesh material={mat} position={[0, 1.42, 0]}>
         <cylinderGeometry args={[0.54, 0.41, 0.36, 48]} />
@@ -525,10 +656,6 @@ function OPVCPipe({ color, metalness, roughness }: { color: string; metalness: n
       {/* Pressure-class colour band near bell end */}
       <mesh material={bandMat} position={[0, 0.95, 0]}>
         <cylinderGeometry args={[0.415, 0.415, 0.1, 48]} />
-      </mesh>
-      {/* Spigot end cap */}
-      <mesh material={mat} position={[0, -1.3, 0]}>
-        <cylinderGeometry args={[0.41, 0.41, 0.05, 48]} />
       </mesh>
     </group>
   );
@@ -608,15 +735,15 @@ function HexBolt({ color, metalness, roughness }: { color: string; metalness: nu
 function GIPipe({ color, metalness, roughness }: { color: string; metalness: number; roughness: number }) {
   const ref = useRef<THREE.Group>(null);
   const mat = useMat(color, metalness, roughness);
+  const boreMat = useBoreMat(color);
   const threadMat = useMemo(() => new THREE.MeshPhysicalMaterial({ color: '#d1d5db', metalness: 0.95, roughness: 0.1 }), []);
 
   useFrame((_, delta) => { if (ref.current) ref.current.rotation.y += delta * 0.42; });
 
   return (
     <group ref={ref} scale={0.88} rotation={[Math.PI / 10, 0, 0]}>
-      <mesh material={mat}>
-        <cylinderGeometry args={[0.38, 0.38, 2.9, 48, 1, true]} />
-      </mesh>
+      {/* Main barrel — hollow bore */}
+      <HollowBarrel outerR={0.38} innerR={0.31} height={2.9} mat={mat} boreMat={boreMat} />
       {/* Threaded end sections */}
       {([-1.35, 1.35] as const).map((y, i) => (
         <group key={i} position={[0, y, 0]}>
@@ -811,6 +938,7 @@ function ModelGeometry({ type, color = '#cbd5e1', metalness = 1, roughness = 0.2
     case 'pipe-elbow':      return <PipeElbow {...p} />;
     case 'hdpe-pipe':       return <HDPEPipe {...p} />;
     case 'ef-coupler':      return <EFCoupler {...p} />;
+    case 'ef-coupler-coiled': return <EFCouplerCoiled {...p} />;
     case 'dwc-pipe':        return <DWCPipe {...p} />;
     case 'opvc-pipe':       return <OPVCPipe {...p} />;
     case 'tmt-bar':         return <TMTBar {...p} />;

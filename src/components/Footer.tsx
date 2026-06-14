@@ -27,18 +27,18 @@ const quickLinks = [
 ];
 
 const productLinks = [
-  { label: 'DI Double Flange Pipes', href: '/products?cat=DI Pipes' },
+  { label: 'DI Pipes', href: '/products?cat=DI Pipes' },
   { label: 'Cast Iron Pipes', href: '/products?cat=CI Pipes' },
-  { label: 'DI Specials & Fittings', href: '/products?cat=DI Specials' },
-  { label: 'Industrial Valves', href: '/products?cat=Valves' },
+  { label: 'Specials & Valves', href: '/products?cat=CI/DI Specials' },
+  { label: 'HDPE & O.PVC.', href: '/products?cat=HDPE & Polymer' },
 ];
 
 const contactItems = [
   {
     icon: <MapPin size={18} className="text-primary shrink-0 mt-1" />,
-    text: 'B No 79/8, Latouche Road, Kanpur - 208002, Uttar Pradesh, India',
+    text: '79/8, Latouche Road, Kanpur - 208002, Uttar Pradesh, India',
   },
-  { icon: <Phone size={18} className="text-primary shrink-0" />, text: '+91 7971549587' },
+  { icon: <Phone size={18} className="text-primary shrink-0" />, text: '+91 9839030844' },
   { icon: <Mail size={18} className="text-primary shrink-0" />, text: 'info@sanghitubes.com' },
 ];
 
@@ -62,7 +62,7 @@ export const Footer = () => {
         <motion.div variants={colVariants} className="space-y-6">
           <Logo />
           <p className="text-sm leading-relaxed text-muted-foreground">
-            Sanghi Pipes &amp; Tubes is a manufacturer of Centrifugally Cast Ductile Iron Double Flange
+            Sanghi Pipes &amp; Tubes is a manufacturer of Centrifugally Cast Double Flange
             Pipes and OPVC Pipes. BIS Licensed. Serving India&apos;s infrastructure with 50+ years of
             industry expertise.
           </p>

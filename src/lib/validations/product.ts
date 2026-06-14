@@ -4,7 +4,7 @@ const CATEGORIES = [
   'DI Pipes',
   'CI Pipes',
   'Valves',
-  'DI Specials',
+  'CI/DI Specials',
   'HDPE & Polymer',
   'MS & GI',
 ] as const
