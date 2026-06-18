@@ -212,7 +212,7 @@ export default function CertificatesPage() {
                     <div className={`absolute inset-0 ${cat.bg} opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none`} />
 
                     <div className="relative z-10 flex items-start justify-between gap-3">
-                      <span className={`text-xs font-black uppercase tracking-[0.15em] px-3 py-1.5 rounded-xl ${cat.badgeColor} text-white`}>
+                      <span className={`text-lg md:text-xl font-black uppercase tracking-[0.18em] px-4 py-2 rounded-xl shadow-lg ring-1 ring-white/20 ${cat.badgeColor} text-white`}>
                         {cert.badge}
                       </span>
                       <span className={`text-[10px] font-bold uppercase tracking-[0.1em] px-2.5 py-1 rounded-lg border ${cat.highlightBg}`}>

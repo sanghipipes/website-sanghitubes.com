@@ -33,17 +33,17 @@ const homepageClients = [
 const categoryCards = [
   {
     name: 'DI Pipes',
-    image: 'https://images.unsplash.com/photo-1721622045835-51a5447f281c?auto=format&fit=crop&q=80&w=800',
+    image: 'https://images.unsplash.com/photo-1649706286480-1c6f3f3c1fb1?auto=format&fit=crop&q=80&w=800',
     desc: 'Ductile Iron Double Flange & S&S Pipes',
   },
   {
     name: 'CI Pipes',
-    image: 'https://images.unsplash.com/photo-1538474705339-e87de81450e8?auto=format&fit=crop&q=80&w=800',
+    image: 'https://images.unsplash.com/photo-1764835746713-34a671e73569?auto=format&fit=crop&q=80&w=800',
     desc: 'Centrifugally Cast Grey Iron Pipes',
   },
   {
     name: 'Valves & Specials',
-    image: 'https://images.unsplash.com/photo-1553969914-e109f9d0e171?auto=format&fit=crop&q=80&w=800',
+    image: 'https://images.unsplash.com/photo-1780034766246-68bab7c0ce00?auto=format&fit=crop&q=80&w=800',
     desc: 'Sluice, Butterfly & Air Valves',
   },
 ];
@@ -92,7 +92,7 @@ export default function Home() {
           <div className="h-[450vh] w-full bg-background relative">
             <div className="sticky top-0 h-screen w-full overflow-hidden">
               <div className="absolute inset-0 pointer-events-none bg-[linear-gradient(rgba(59,130,246,0.055)_1px,transparent_1px),linear-gradient(90deg,rgba(59,130,246,0.055)_1px,transparent_1px)] bg-[size:80px_80px] [mask-image:radial-gradient(ellipse_at_center,black,transparent_78%)]" />
-              <div className="absolute inset-0 flex items-start pt-28 justify-center px-8">
+              <div className="absolute inset-0 flex items-center justify-center px-8">
                 <div className="text-center relative z-10">
                   <span className="text-primary font-black tracking-[1em] uppercase text-xs md:text-sm mb-4 block">
                     Precision // Resilience // Quality
@@ -296,7 +296,7 @@ export default function Home() {
 
                   <div className="p-8">
                     <h3 className="text-3xl font-black text-foreground uppercase italic tracking-tight mb-3">
-                      OPVC Pipes IS:16647
+                      OPVC Pipes
                     </h3>
                     <p className="text-muted-foreground leading-relaxed mb-6">
                       Oriented PVC pressure pipes — superior strength-to-weight ratio versus
@@ -463,7 +463,7 @@ export default function Home() {
                 <p className="text-muted-foreground mb-12 leading-relaxed text-xl font-medium">
                   Sanghi Pipes &amp; Tubes has received the prestigious Licence from the Bureau of
                   Indian Standards. We are recognised as one of India&apos;s most reliable manufacturers
-                  of Centrifugally Cast Ductile Iron Double Flange Pipes — now expanding into OPVC
+                  of Centrifugally Cast D.I. / C.I. Double Flange Pipes — now expanding into OPVC
                   with the same commitment to engineering precision.
                 </p>
 
@@ -624,7 +624,7 @@ export default function Home() {
                     Icon: Waves,
                     cat: 'OPVC & HDPE',
                     spec: 'DN 20–630 mm',
-                    isStd: 'IS 4984',
+                    isStd: 'IS 16647 / IS 4984',
                     gradient: 'from-emerald-500/8 to-transparent',
                     accent: 'text-emerald-400',
                     accentBg: 'bg-emerald-400/10',
@@ -635,7 +635,7 @@ export default function Home() {
                     Icon: Factory,
                     cat: 'Others',
                     spec: 'NB 15–1600 mm',
-                    isStd: 'IS 1239',
+                    isStd: 'IS 1879 / IS 1239',
                     gradient: 'from-orange-500/8 to-transparent',
                     accent: 'text-orange-400',
                     accentBg: 'bg-orange-400/10',

@@ -28,7 +28,7 @@ const quickLinks = [
 
 const productLinks = [
   { label: 'DI Pipes', href: '/products?cat=DI Pipes' },
-  { label: 'Cast Iron Pipes', href: '/products?cat=CI Pipes' },
+  { label: 'CI Pipes', href: '/products?cat=CI Pipes' },
   { label: 'Specials & Valves', href: '/products?cat=CI/DI Specials' },
   { label: 'HDPE & O.PVC.', href: '/products?cat=HDPE & Polymer' },
 ];
@@ -63,7 +63,7 @@ export const Footer = () => {
           <Logo />
           <p className="text-sm leading-relaxed text-muted-foreground">
             Sanghi Pipes &amp; Tubes is a manufacturer of Centrifugally Cast Double Flange
-            Pipes and OPVC Pipes. BIS Licensed. Serving India&apos;s infrastructure with 50+ years of
+            Pipes and OPVC Pipes. Serving India&apos;s infrastructure with 50+ years of
             industry expertise.
           </p>
           <div className="flex gap-4">

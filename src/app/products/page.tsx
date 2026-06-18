@@ -7,7 +7,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Search, Check, Info, ChevronRight } from 'lucide-react';
 import { products, categories, Product } from '@/data/products';
 import { useQuote } from '@/context/QuoteContext';
-import { cn, truncate } from '@/lib/utils';
+import { cn } from '@/lib/utils';
 import { FadeIn } from '@/components/ui/FadeIn';
 import { InteractiveProductModel } from '@/components/ui/InteractiveProductModel';
 
@@ -18,10 +18,30 @@ function getProductModelProps(product: Product) {
     'ci-double-flange-pipe':  { type: 'ci-flanged-pipe', color: '#2d2d2d', metalness: 0.60, roughness: 0.65 },
     'ci-spun-pipe-ss':        { type: 'ci-ss-pipe',      color: '#2d2d2d', metalness: 0.60, roughness: 0.65 },
     'sluice-valve':           { type: 'gate-valve',      color: '#1e3a5f', metalness: 0.92, roughness: 0.22 },
-    'air-valve':              { type: 'air-valve',       color: '#374151', metalness: 0.85, roughness: 0.35 },
+    'air-valve':              { type: 'air-valve',       color: '#1e3a5f', metalness: 0.90, roughness: 0.30 },
     'butterfly-valve':        { type: 'butterfly-valve', color: '#1e3a5f', metalness: 0.92, roughness: 0.2  },
     'non-return-valve':       { type: 'check-valve',     color: '#1e3a5f', metalness: 0.92, roughness: 0.28 },
     'di-specials':            { type: 'pipe-tee',        color: '#1a2535', metalness: 0.95, roughness: 0.28 },
+    'di-flanged-bend-45':     { type: 'flanged-bend-45', color: '#2a2f38', metalness: 0.5,  roughness: 0.55 },
+    'di-socket-tee':          { type: 'socket-tee',      color: '#1d4ed8', metalness: 0.35, roughness: 0.32 },
+    'di-flanged-tee':         { type: 'flanged-tee',     color: '#2563eb', metalness: 0.4,  roughness: 0.35 },
+    'di-flanged-cross':       { type: 'flanged-cross',   color: '#2a2f38', metalness: 0.5,  roughness: 0.55 },
+    'di-collar':              { type: 'collar',          color: '#2a2f38', metalness: 0.5,  roughness: 0.55 },
+    'di-flanged-spigot':      { type: 'flanged-spigot',  color: '#1d4ed8', metalness: 0.35, roughness: 0.32 },
+    'di-flanged-adapter':     { type: 'flanged-adapter', color: '#2a2f38', metalness: 0.5,  roughness: 0.55 },
+    'di-socket-bend-11':      { type: 'socket-bend-11',  color: '#2a2f38', metalness: 0.5,  roughness: 0.55 },
+    'di-plug':                { type: 'plug',            color: '#2a2f38', metalness: 0.5,  roughness: 0.55 },
+    'di-duckfoot-bend-90':    { type: 'duckfoot-bend-90',color: '#2563eb', metalness: 0.4,  roughness: 0.35 },
+    'di-socket-cross':        { type: 'socket-cross',    color: '#2a2f38', metalness: 0.5,  roughness: 0.55 },
+    'di-flange-socket-tee':   { type: 'flange-socket-tee',color:'#2a2f38', metalness: 0.5,  roughness: 0.55 },
+    'di-socket-bend-90':      { type: 'socket-bend-90',  color: '#2563eb', metalness: 0.4,  roughness: 0.35 },
+    'di-bell-mouth':          { type: 'bell-mouth',      color: '#2a2f38', metalness: 0.5,  roughness: 0.55 },
+    'di-flanged-socket':      { type: 'flanged-socket',  color: '#2a2f38', metalness: 0.5,  roughness: 0.55 },
+    'di-mj-collar':           { type: 'mj-collar',       color: '#2563eb', metalness: 0.4,  roughness: 0.35 },
+    'di-end-cap':             { type: 'end-cap',         color: '#2a2f38', metalness: 0.5,  roughness: 0.55 },
+    'di-blank-flange':        { type: 'blank-flange',    color: '#2a2f38', metalness: 0.5,  roughness: 0.55 },
+    'di-puddle-pipe':         { type: 'puddle-pipe',     color: '#2563eb', metalness: 0.4,  roughness: 0.35 },
+    'di-single-flange-pipe':  { type: 'flanged-spigot',  color: '#2a2f38', metalness: 0.5,  roughness: 0.55 },
     'hdpe-pipes':             { type: 'hdpe-pipe',       color: '#0f172a', metalness: 0,    roughness: 0.75 },
     'hdpe-specials':          { type: 'ef-coupler',      color: '#0f172a', metalness: 0,    roughness: 0.75 },
     'electrofusion-fittings': { type: 'ef-coupler-coiled', color: '#0f172a', metalness: 0,  roughness: 0.7  },
@@ -30,7 +50,7 @@ function getProductModelProps(product: Product) {
     'ms-pipes':               { type: 'ms-pipe',         color: '#2c3e50', metalness: 0.78, roughness: 0.48 },
     'ms-specials':            { type: 'pipe-tee',        color: '#2c3e50', metalness: 0.78, roughness: 0.48 },
     'gi-pipes':               { type: 'gi-pipe',         color: '#9ca3af', metalness: 0.97, roughness: 0.12 },
-    'gi-specials':            { type: 'gi-elbow',        color: '#9ca3af', metalness: 0.95, roughness: 0.15 },
+    'gi-specials':            { type: 'gi-elbow',        color: '#cbd5e1', metalness: 1,    roughness: 0.12 },
     'tmt-bars':               { type: 'tmt-bar',         color: '#374151', metalness: 0.85, roughness: 0.55 },
     'ms-bolts-nut-bolts':     { type: 'bolt',            color: '#9ca3af', metalness: 0.97, roughness: 0.12 },
   };
@@ -179,14 +199,9 @@ function ProductsContent() {
                 </div>
 
                 <div className="p-8">
-                  <h3 className="text-2xl font-black mb-3 group-hover:text-primary transition-colors tracking-tight italic uppercase">
+                  <h3 className="text-2xl font-black mb-6 group-hover:text-primary transition-colors tracking-tight italic uppercase">
                     {product.name}
                   </h3>
-                  {product.description && (
-                    <p className="text-muted-foreground text-sm mb-8 leading-relaxed">
-                      {truncate(product.description, 115)}
-                    </p>
-                  )}
 
                   <AnimatePresence>
                     {selectedProductId === product.id && (

@@ -49,6 +49,7 @@ const allClients: Client[] = [
   { abbr: 'RWT',   name: 'Rean Watertech Pvt Ltd',          sub: 'Water Technology',  sector: 'Construction',         color: 'text-cyan-300',    bg: 'bg-cyan-400/10'    },
   { abbr: 'NPSS',  name: 'NPSS Const Pvt Ltd',              sub: 'Construction',      sector: 'Construction',         color: 'text-blue-300',    bg: 'bg-blue-400/10'    },
   { abbr: 'BNKO',  name: 'Banko Construction Pvt Ltd',      sub: 'Construction',      sector: 'Construction',         color: 'text-orange-300',  bg: 'bg-orange-400/10'  },
+  { abbr: 'JEPL',  name: 'Jal Engineers Pvt Ltd',           sub: 'Water Infrastructure',sector: 'Construction',       color: 'text-fuchsia-400', bg: 'bg-fuchsia-500/10' },
 ];
 
 const featuredProjects: FeaturedProject[] = [
@@ -91,10 +92,9 @@ const tabs = [
 ];
 
 const sectorStats = [
-  { value: '19+',  label: 'Key Contractors'   },
-  { value: '15+',  label: 'States Served'     },
-  { value: '200+', label: 'Projects Delivered'},
-  { value: '50+',  label: 'Years of Service'  },
+  { value: 'Pan India', label: '& Exports'        },
+  { value: '1000+',     label: 'Projects Delivered'},
+  { value: '50+',       label: 'Years of Service'  },
 ];
 
 export default function ClientsPage() {
@@ -127,7 +127,7 @@ export default function ClientsPage() {
           </FadeIn>
 
           {/* Stats */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-16">
+          <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-3 gap-4 mt-16">
             {sectorStats.map((s, i) => (
               <motion.div
                 key={i}
@@ -182,10 +182,9 @@ export default function ClientsPage() {
                 <span className="text-[9px] uppercase tracking-[0.2em] text-muted-foreground font-bold">{fp.sector}</span>
               </div>
 
-              <h3 className="text-lg font-black text-foreground uppercase tracking-tight leading-tight mb-2">
+              <h3 className="text-lg font-black text-foreground uppercase tracking-tight leading-tight mb-5">
                 {fp.client}
               </h3>
-              <p className="text-muted-foreground text-sm mb-5 leading-relaxed">{fp.project}</p>
 
               <div className="space-y-2">
                 <div className="flex items-center gap-2 text-xs text-muted-foreground">
