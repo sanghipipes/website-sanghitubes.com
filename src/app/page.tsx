@@ -135,7 +135,7 @@ export default function Home() {
             staggerChildren={0.15}
           >
             <div className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]" />
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-12 relative z-10 px-12">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-12 md:gap-12 relative z-10 px-5 sm:px-8 md:px-12">
               {[
                 { label: 'Years Experience', value: '50+' },
                 { label: 'Products In Range', value: '500+' },
@@ -143,7 +143,7 @@ export default function Home() {
                 { label: 'Quality Standards', value: 'BIS/ISO' },
               ].map((stat, i) => (
                 <StaggerItem key={i} className="text-center">
-                  <div className="text-5xl font-black mb-2 italic tracking-tighter">{stat.value}</div>
+                  <div className="text-3xl sm:text-4xl md:text-5xl font-black mb-2 italic tracking-tighter">{stat.value}</div>
                   <div className="text-[10px] uppercase tracking-[0.3em] opacity-80 font-black">{stat.label}</div>
                 </StaggerItem>
               ))}
