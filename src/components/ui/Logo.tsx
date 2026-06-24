@@ -4,25 +4,13 @@ import { cn } from '@/lib/utils';
 
 export const Logo = ({ className }: { className?: string }) => {
   return (
-    <div className={cn("flex items-center gap-3", className)}>
-      <div className="relative h-10 w-10 flex-shrink-0 overflow-hidden rounded-lg bg-white shadow-sm">
-        <Image
-          src="/spt-logo.png"
-          alt="Sanghi Tubes Private Limited"
-          fill
-          sizes="40px"
-          className="object-contain"
-          priority
-        />
-      </div>
-      <div>
-        <div className="font-black text-xl leading-none tracking-tighter text-foreground group-hover:text-primary transition-colors">
-          SANGHI TUBES
-        </div>
-        <div className="text-[10px] font-bold tracking-[0.2em] text-muted-foreground uppercase">
-          Private Limited
-        </div>
-      </div>
-    </div>
+    <Image
+      src="/sanghi-logo.png"
+      alt="Sanghi Pipes and Tubes"
+      width={160}
+      height={160}
+      className={cn("h-12 w-auto object-contain", className)}
+      priority
+    />
   );
 };

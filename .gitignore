@@ -43,5 +43,6 @@ next-env.d.ts
 
 # local screenshots
 *.png
-# …but always track committed image assets under public/
+# …but always track committed image assets under public/ and the app icon
 !/public/**
+!/src/app/icon.png
