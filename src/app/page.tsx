@@ -33,17 +33,17 @@ const homepageClients = [
 const categoryCards = [
   {
     name: 'DI Pipes',
-    image: 'https://images.unsplash.com/photo-1649706286480-1c6f3f3c1fb1?auto=format&fit=crop&q=80&w=800',
+    image: '/categories/di-pipes.png',
     desc: 'Ductile Iron Double Flange & S&S Pipes',
   },
   {
     name: 'CI Pipes',
-    image: 'https://images.unsplash.com/photo-1764835746713-34a671e73569?auto=format&fit=crop&q=80&w=800',
+    image: '/categories/ci-pipes.png',
     desc: 'Centrifugally Cast Grey Iron Pipes',
   },
   {
     name: 'Valves & Specials',
-    image: 'https://images.unsplash.com/photo-1780034766246-68bab7c0ce00?auto=format&fit=crop&q=80&w=800',
+    image: '/categories/valves-specials.png',
     desc: 'Sluice, Butterfly & Air Valves',
   },
 ];

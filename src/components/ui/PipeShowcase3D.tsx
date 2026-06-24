@@ -547,25 +547,26 @@ export const PipeShowcase3D = () => {
             </div>
           </TextSection>
 
-          {/* 3 — OPVC Pipe specs (right, by the OPVC pipe; card bg for contrast) */}
+          {/* 3 — OPVC Pipe specs (right, by the OPVC pipe — same overlay layout as the
+              Double Flanged section, no card, so the pipe + opening animation show through) */}
           <TextSection
             scrollProgress={scrollYProgress}
             inStart={0.50} peakStart={0.58} peakEnd={0.74} outEnd={0.82}
             align="right"
           >
-            <div className={`max-w-md p-8 rounded-[2rem] border border-border/30 shadow-2xl ${isMobile ? 'bg-background' : 'bg-background/85 backdrop-blur-2xl'}`}>
+            <div className="max-w-md">
               <div className="flex items-center gap-5 mb-6">
                 <div className="h-12 w-12 rounded-xl bg-primary/10 border border-primary/30 flex items-center justify-center">
                   <span className="text-primary font-black text-lg italic">02</span>
                 </div>
                 <div className="h-px w-40 bg-gradient-to-r from-primary/50 to-transparent" />
               </div>
-              <h2 className="text-5xl md:text-7xl font-black text-foreground mb-4 italic uppercase tracking-tighter leading-none">
+              <h2 className="text-6xl md:text-8xl font-black text-foreground mb-6 italic uppercase tracking-tighter leading-none">
                 OPVC
                 <br />
                 <span className="text-primary not-italic">Pipes</span>
               </h2>
-              <p className="text-muted-foreground text-lg mb-6 leading-relaxed font-medium">
+              <p className="text-muted-foreground text-xl mb-4 leading-relaxed font-medium">
                 India&apos;s next-generation water pipe — oriented PVC with a superior
                 strength-to-weight ratio and rubber-ring push-fit joints.
               </p>
