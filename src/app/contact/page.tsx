@@ -70,7 +70,7 @@ export default function ContactPage() {
           <div className="space-y-12">
             <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {[
-                { icon: <Phone />, title: 'Call Us', detail: '+91 9839030844, +91 9170887333', sub: 'Mon-Sat, 9am - 7pm' },
+                { icon: <Phone />, title: 'Call Us', detail: '+91 9839030844, +91 6389777555, +91 9838071075', sub: 'Mon-Sat, 9am - 7pm' },
                 {
                   icon: <Mail />,
                   title: 'Email Us',

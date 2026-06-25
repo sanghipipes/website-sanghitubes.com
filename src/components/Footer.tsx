@@ -30,7 +30,9 @@ const productLinks = [
   { label: 'DI Pipes', href: '/products?cat=DI Pipes' },
   { label: 'CI Pipes', href: '/products?cat=CI Pipes' },
   { label: 'Specials & Valves', href: '/products?cat=CI/DI Specials' },
-  { label: 'HDPE & O.PVC.', href: '/products?cat=HDPE & Polymer' },
+  { label: 'HDPE', href: '/products?cat=HDPE & Polymer' },
+  { label: 'OPVC', href: '/products?cat=HDPE & Polymer' },
+  { label: 'MS & GI', href: '/products?cat=MS & GI' },
 ];
 
 const contactItems = [
@@ -103,7 +105,7 @@ export const Footer = () => {
           <h4 className="text-foreground font-bold mb-6 text-lg">Product Categories</h4>
           <ul className="space-y-4 text-sm">
             {productLinks.map((link) => (
-              <li key={link.href}>
+              <li key={link.label}>
                 <motion.div
                   whileHover={{ x: 6 }}
                   transition={{ type: 'spring', stiffness: 400, damping: 22 }}

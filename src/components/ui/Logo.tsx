@@ -5,11 +5,11 @@ import { cn } from '@/lib/utils';
 export const Logo = ({ className }: { className?: string }) => {
   return (
     <Image
-      src="/sanghi-logo.png"
+      src="/sanghi-logo.jpeg"
       alt="Sanghi Pipes and Tubes"
-      width={160}
-      height={160}
-      className={cn("h-12 w-auto object-contain", className)}
+      width={200}
+      height={200}
+      className={cn("h-16 w-auto object-contain", className)}
       priority
     />
   );

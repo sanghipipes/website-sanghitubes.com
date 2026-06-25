@@ -93,7 +93,7 @@ export const Navbar = () => {
           <motion.a
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            href="tel:+917971549587"
+            href="tel:+919839030844"
             className="flex items-center gap-3 bg-foreground text-background px-6 py-2.5 rounded-xl text-xs font-black uppercase tracking-widest hover:bg-primary hover:text-white transition-all shadow-xl shadow-black/20"
           >
             <Phone size={14} />
@@ -178,7 +178,7 @@ export const Navbar = () => {
                 }}
               >
                 <a
-                  href="tel:+917971549587"
+                  href="tel:+919839030844"
                   className="flex items-center justify-center gap-2 bg-primary text-primary-foreground py-3 rounded-lg font-bold"
                 >
                   <Phone size={18} />

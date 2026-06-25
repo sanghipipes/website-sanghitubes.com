@@ -224,10 +224,6 @@ function CIFlangedPipe({ color, metalness, roughness }: { color: string; metalne
           </mesh>
         </group>
       ))}
-      {/* Centre reinforcing ring — visible CI manufacturing feature */}
-      <mesh material={mat} position={[0, 0, 0]}>
-        <torusGeometry args={[0.48, 0.055, 16, 48]} />
-      </mesh>
       <FlangeDisk y={1.43}  mat={mat} boltMat={boltMat} boreR={0.38} boreMat={boreMat} />
       <FlangeDisk y={-1.43} mat={mat} boltMat={boltMat} boreR={0.38} boreMat={boreMat} />
     </group>
@@ -261,10 +257,6 @@ function CISSPipe({ color, metalness, roughness }: { color: string; metalness: n
       {/* Flat socket top rim (wide annular face) */}
       <mesh material={mat} position={[0, 1.525, 0]} rotation={[Math.PI / 2, 0, 0]}>
         <ringGeometry args={[0.5, 0.72, 64]} />
-      </mesh>
-      {/* Collar ring at base of socket bell — CI reinforcement detail */}
-      <mesh material={mat} position={[0, 1.075, 0]}>
-        <torusGeometry args={[0.5, 0.045, 16, 64]} />
       </mesh>
     </group>
   );
@@ -306,49 +298,98 @@ function SSPipe({ color, metalness, roughness }: { color: string; metalness: num
 function GateValve({ color, metalness, roughness }: { color: string; metalness: number; roughness: number }) {
   const ref = useRef<THREE.Group>(null);
   const mat = useMat(color, metalness, roughness);
-  const wheelMat = useMemo(() => new THREE.MeshPhysicalMaterial({ color: '#dc2626', metalness: 0.7, roughness: 0.4 }), []);
+  const boltMat = useMemo(() => new THREE.MeshPhysicalMaterial({ color: '#0f172a', metalness: 1, roughness: 0.25 }), []);
+  const stemMat = useMemo(() => new THREE.MeshPhysicalMaterial({ color: '#cbd5e1', metalness: 1, roughness: 0.22 }), []);
+  const bronzeMat = useMemo(() => new THREE.MeshPhysicalMaterial({ color: '#b58a4e', metalness: 1, roughness: 0.32 }), []);
 
   useFrame((_, delta) => { if (ref.current) ref.current.rotation.y += delta * 0.32; });
 
   return (
-    <group ref={ref} scale={0.82}>
-      {/* Body */}
-      <mesh material={mat}>
-        <boxGeometry args={[1.0, 0.85, 0.75]} />
+    <group ref={ref} scale={0.6} position={[0, -0.42, 0]} rotation={[0, Math.PI / 8, 0]}>
+      {/* ── Body — horizontal flow barrel + oval belly ── */}
+      <mesh material={mat} rotation={[0, 0, Math.PI / 2]}>
+        <cylinderGeometry args={[0.5, 0.5, 1.36, 48]} />
       </mesh>
-      {/* Inlet / outlet ports */}
-      {([-0.7, 0.7] as const).map((x, i) => (
-        <mesh key={i} material={mat} position={[x, 0, 0]} rotation={[0, 0, Math.PI / 2]}>
-          <cylinderGeometry args={[0.3, 0.3, 0.45, 32]} />
+      <mesh material={mat} scale={[1, 1.08, 1]}>
+        <sphereGeometry args={[0.58, 40, 28]} />
+      </mesh>
+      {/* End flanges — raised face + ring of bolt holes */}
+      {([-0.82, 0.82] as const).map((x, i) => (
+        <group key={i} position={[x, 0, 0]}>
+          <mesh material={mat} rotation={[0, 0, Math.PI / 2]}>
+            <cylinderGeometry args={[0.7, 0.7, 0.16, 48]} />
+          </mesh>
+          <mesh material={mat} position={[x > 0 ? 0.1 : -0.1, 0, 0]} rotation={[0, 0, Math.PI / 2]}>
+            <cylinderGeometry args={[0.5, 0.5, 0.06, 40]} />
+          </mesh>
+          {Array.from({ length: 8 }).map((_, j) => {
+            const a = (j / 8) * Math.PI * 2;
+            return (
+              <mesh key={j} material={boltMat}
+                position={[0, Math.cos(a) * 0.57, Math.sin(a) * 0.57]} rotation={[0, 0, Math.PI / 2]}>
+                <cylinderGeometry args={[0.045, 0.045, 0.2, 10]} />
+              </mesh>
+            );
+          })}
+        </group>
+      ))}
+      {/* ── Foot pads at the base ── */}
+      {([-0.6, 0.6] as const).map((x, i) => (
+        <mesh key={`ft${i}`} material={mat} position={[x, -0.66, 0]}>
+          <boxGeometry args={[0.22, 0.1, 0.42]} />
         </mesh>
       ))}
-      {/* Port flanges */}
-      {([-0.93, 0.93] as const).map((x, i) => (
-        <mesh key={i} material={mat} position={[x, 0, 0]} rotation={[0, 0, Math.PI / 2]}>
-          <cylinderGeometry args={[0.45, 0.45, 0.12, 32]} />
+      {/* ── Bolted body↔bonnet joint: oval flange + protruding hex bolts ── */}
+      <mesh material={mat} position={[0, 0.42, 0]}>
+        <boxGeometry args={[0.92, 0.14, 0.62]} />
+      </mesh>
+      {([-0.46, 0.46] as const).map((x, i) => (
+        <mesh key={`je${i}`} material={mat} position={[x, 0.42, 0]}>
+          <cylinderGeometry args={[0.31, 0.31, 0.14, 28]} />
         </mesh>
       ))}
-      {/* Bonnet */}
-      <mesh material={mat} position={[0, 0.65, 0]}>
-        <cylinderGeometry args={[0.26, 0.32, 0.45, 16]} />
-      </mesh>
-      {/* Stem */}
-      <mesh material={mat} position={[0, 1.22, 0]}>
-        <cylinderGeometry args={[0.065, 0.065, 0.7, 12]} />
-      </mesh>
-      {/* Handwheel rim */}
-      <mesh material={wheelMat} position={[0, 1.6, 0]} rotation={[Math.PI / 2, 0, 0]}>
-        <torusGeometry args={[0.44, 0.038, 12, 48]} />
-      </mesh>
-      {/* Spokes */}
-      {[0, 1, 2, 3].map((i) => (
-        <mesh key={i} material={wheelMat} position={[0, 1.6, 0]} rotation={[Math.PI / 2, 0, (i / 4) * Math.PI * 2]}>
-          <cylinderGeometry args={[0.022, 0.022, 0.88, 8]} />
+      {([[0.36, 0.34], [-0.36, 0.34], [0.36, -0.34], [-0.36, -0.34]] as [number, number][]).map(([bx, bz], i) => (
+        <mesh key={`jb${i}`} material={boltMat} position={[bx, 0.42, bz]} rotation={[Math.PI / 2, 0, 0]}>
+          <cylinderGeometry args={[0.06, 0.06, 0.12, 6]} />
         </mesh>
       ))}
-      {/* Hub */}
-      <mesh material={wheelMat} position={[0, 1.6, 0]}>
-        <cylinderGeometry args={[0.09, 0.09, 0.12, 12]} />
+      {/* ── Bonnet dome (bell) + neck ── */}
+      <mesh material={mat} position={[0, 0.5, 0]}>
+        <sphereGeometry args={[0.34, 32, 20, 0, Math.PI * 2, 0, Math.PI / 2]} />
+      </mesh>
+      <mesh material={mat} position={[0, 0.86, 0]}>
+        <cylinderGeometry args={[0.15, 0.2, 0.2, 28]} />
+      </mesh>
+      {/* ── Bronze gland nut ── */}
+      <mesh material={bronzeMat} position={[0, 1.0, 0]}>
+        <cylinderGeometry args={[0.16, 0.16, 0.12, 24]} />
+      </mesh>
+      {/* ── Silver yoke frame: two legs + top bridge ── */}
+      {([-0.12, 0.12] as const).map((x, i) => (
+        <mesh key={`yl${i}`} material={stemMat} position={[x, 1.3, 0]}>
+          <boxGeometry args={[0.05, 0.5, 0.05]} />
+        </mesh>
+      ))}
+      <mesh material={stemMat} position={[0, 1.54, 0]}>
+        <boxGeometry args={[0.34, 0.07, 0.12]} />
+      </mesh>
+      {/* ── Silver threaded stem through the yoke ── */}
+      <mesh material={stemMat} position={[0, 1.32, 0]}>
+        <cylinderGeometry args={[0.045, 0.045, 0.72, 12]} />
+      </mesh>
+      {/* ── Solid dished handwheel (blue) ── */}
+      <mesh material={mat} position={[0, 1.76, 0]}>
+        <cylinderGeometry args={[0.46, 0.3, 0.1, 40]} />
+      </mesh>
+      <mesh material={mat} position={[0, 1.74, 0]} rotation={[Math.PI / 2, 0, 0]}>
+        <torusGeometry args={[0.45, 0.055, 14, 48]} />
+      </mesh>
+      {/* centre hub + stem nut */}
+      <mesh material={mat} position={[0, 1.82, 0]}>
+        <cylinderGeometry args={[0.1, 0.12, 0.12, 20]} />
+      </mesh>
+      <mesh material={boltMat} position={[0, 1.9, 0]}>
+        <cylinderGeometry args={[0.05, 0.05, 0.06, 6]} />
       </mesh>
     </group>
   );
@@ -358,72 +399,75 @@ function GateValve({ color, metalness, roughness }: { color: string; metalness: 
 function AirValve({ color, metalness, roughness }: { color: string; metalness: number; roughness: number }) {
   const ref = useRef<THREE.Group>(null);
   const mat = useMat(color, metalness, roughness);
-  const capMat = useMemo(() => new THREE.MeshPhysicalMaterial({ color: '#f59e0b', metalness: 0.8, roughness: 0.3 }), []);
 
   const boltMat = useMemo(() => new THREE.MeshPhysicalMaterial({ color: '#0f172a', metalness: 1, roughness: 0.25 }), []);
 
   useFrame((_, delta) => { if (ref.current) ref.current.rotation.y += delta * 0.5; });
 
   return (
-    <group ref={ref} scale={0.8}>
-      {/* Inlet stub at the very bottom */}
-      <mesh material={mat} position={[0, -1.02, 0]}>
-        <cylinderGeometry args={[0.22, 0.22, 0.18, 24]} />
+    <group ref={ref} scale={0.62} position={[0, 0.02, 0]}>
+      {/* ── Flanged inlet end at the bottom ── */}
+      <mesh material={mat} position={[0, -1.18, 0]}>
+        <cylinderGeometry args={[0.24, 0.24, 0.16, 24]} />
       </mesh>
-      {/* Base flange */}
-      <mesh material={mat} position={[0, -0.9, 0]}>
-        <cylinderGeometry args={[0.6, 0.6, 0.12, 40]} />
+      <mesh material={mat} position={[0, -1.06, 0]}>
+        <cylinderGeometry args={[0.5, 0.5, 0.12, 40]} />
       </mesh>
-      {/* Base-flange bolts */}
       {Array.from({ length: 6 }).map((_, i) => {
         const a = (i / 6) * Math.PI * 2;
         return (
-          <mesh key={`bb${i}`} material={boltMat} position={[Math.cos(a) * 0.5, -0.9, Math.sin(a) * 0.5]}>
-            <cylinderGeometry args={[0.032, 0.032, 0.16, 8]} />
+          <mesh key={`bb${i}`} material={boltMat} position={[Math.cos(a) * 0.4, -1.06, Math.sin(a) * 0.4]}>
+            <cylinderGeometry args={[0.035, 0.035, 0.16, 10]} />
           </mesh>
         );
       })}
-      {/* Squat main body (lower chamber) */}
-      <mesh material={mat} position={[0, -0.42, 0]}>
-        <cylinderGeometry args={[0.56, 0.56, 0.78, 40]} />
+      {/* ── Tall central riser neck ── */}
+      <mesh material={mat} position={[0, -0.6, 0]}>
+        <cylinderGeometry args={[0.27, 0.34, 0.8, 32]} />
       </mesh>
-      {/* Horizontal split flange between body and cover */}
-      <mesh material={mat} position={[0, -0.02, 0]}>
-        <cylinderGeometry args={[0.62, 0.62, 0.11, 40]} />
+      {/* Saddle widening out to the chambers */}
+      <mesh material={mat} position={[0, -0.12, 0]}>
+        <cylinderGeometry args={[0.78, 0.4, 0.4, 40]} />
       </mesh>
-      {/* Cover-flange bolts around the split line */}
-      {Array.from({ length: 8 }).map((_, i) => {
-        const a = (i / 8) * Math.PI * 2;
-        return (
-          <mesh key={`cb${i}`} material={boltMat} position={[Math.cos(a) * 0.56, -0.02, Math.sin(a) * 0.56]}>
-            <cylinderGeometry args={[0.03, 0.03, 0.16, 8]} />
+      {/* ── Two oval pot-chambers (rounded cylinders) splaying wide ── */}
+      {([-0.4, 0.4] as number[]).map((x, ci) => (
+        <mesh key={`ch${ci}`} material={mat} position={[x, 0.16, 0]}>
+          <capsuleGeometry args={[0.4, 0.34, 12, 28]} />
+        </mesh>
+      ))}
+      {/* ── Stacked oval split-flange joint (two parallel plates with a gap) ── */}
+      {([0.6, 0.74] as number[]).map((y, fi) => (
+        <group key={`fl${fi}`}>
+          <mesh material={mat} position={[0, y, 0]}>
+            <boxGeometry args={[1.3, 0.1, 0.66]} />
           </mesh>
-        );
-      })}
-      {/* Two side-by-side float chambers with bolted domed covers */}
-      {([-0.27, 0.27] as number[]).map((x, ci) => (
-        <group key={`ch${ci}`} position={[x, 0, 0]}>
-          {/* Chamber barrel */}
-          <mesh material={mat} position={[0, 0.28, 0]}>
-            <cylinderGeometry args={[0.25, 0.27, 0.56, 28]} />
+          {([-0.65, 0.65] as number[]).map((x, j) => (
+            <mesh key={j} material={mat} position={[x, y, 0]}>
+              <cylinderGeometry args={[0.33, 0.33, 0.1, 28]} />
+            </mesh>
+          ))}
+        </group>
+      ))}
+      {/* ── Oval top cover plate ── */}
+      <mesh material={mat} position={[0, 0.86, 0]}>
+        <boxGeometry args={[1.22, 0.1, 0.6]} />
+      </mesh>
+      {([-0.61, 0.61] as number[]).map((x, i) => (
+        <mesh key={`tc${i}`} material={mat} position={[x, 0.86, 0]}>
+          <cylinderGeometry args={[0.3, 0.3, 0.1, 28]} />
+        </mesh>
+      ))}
+      {/* ── Four bolt studs sticking UP from the cover corners ── */}
+      {([[-0.56, 0.2], [0.56, 0.2], [-0.56, -0.2], [0.56, -0.2]] as [number, number][]).map(([sx, sz], i) => (
+        <group key={`st${i}`} position={[sx, 1.02, sz]}>
+          <mesh material={boltMat}>
+            <cylinderGeometry args={[0.028, 0.028, 0.3, 10]} />
           </mesh>
-          {/* Bolted cover ring */}
-          <mesh material={mat} position={[0, 0.56, 0]}>
-            <cylinderGeometry args={[0.28, 0.28, 0.07, 28]} />
-          </mesh>
-          {/* Domed cap */}
-          <mesh material={mat} position={[0, 0.59, 0]}>
-            <sphereGeometry args={[0.25, 28, 14, 0, Math.PI * 2, 0, Math.PI / 2]} />
+          <mesh material={boltMat} position={[0, 0.17, 0]}>
+            <cylinderGeometry args={[0.05, 0.05, 0.06, 6]} />
           </mesh>
         </group>
       ))}
-      {/* Brass vent nozzle on the right chamber */}
-      <mesh material={capMat} position={[0.27, 0.82, 0]}>
-        <cylinderGeometry args={[0.05, 0.065, 0.14, 16]} />
-      </mesh>
-      <mesh material={capMat} position={[0.27, 0.9, 0]}>
-        <sphereGeometry args={[0.055, 12, 8]} />
-      </mesh>
     </group>
   );
 }
@@ -432,65 +476,80 @@ function AirValve({ color, metalness, roughness }: { color: string; metalness: n
 function ButterflyValve({ color, metalness, roughness }: { color: string; metalness: number; roughness: number }) {
   const ref = useRef<THREE.Group>(null);
   const mat = useMat(color, metalness, roughness);
-  const boreMat = useBoreMat(color);
   const discMat = useMemo(() => new THREE.MeshPhysicalMaterial({ color: '#1f2937', metalness: 0.85, roughness: 0.35 }), []);
   const handleMat = useMemo(() => new THREE.MeshPhysicalMaterial({ color: '#111827', metalness: 0.7, roughness: 0.4 }), []);
-  const discRef = useRef<THREE.Group>(null);
+  const seatMat = useMemo(() => new THREE.MeshPhysicalMaterial({ color: '#6b7280', metalness: 0.2, roughness: 0.85 }), []);
+  const stemMat = useMemo(() => new THREE.MeshPhysicalMaterial({ color: '#2b3340', metalness: 0.95, roughness: 0.28 }), []);
 
-  useFrame((state, delta) => {
-    if (ref.current) ref.current.rotation.y += delta * 0.32;
-    if (discRef.current) discRef.current.rotation.y = (Math.sin(state.clock.elapsedTime * 0.9) * 0.5 + 0.5) * (Math.PI / 3);
-  });
+  useFrame((_, delta) => { if (ref.current) ref.current.rotation.y += delta * 0.32; });
 
   return (
-    <group ref={ref} scale={0.9} rotation={[Math.PI / 10, 0, 0]}>
-      {/* Wafer body — short ring whose axis is the flow direction (x) */}
-      <mesh material={mat} rotation={[0, 0, Math.PI / 2]}>
+    <group ref={ref} scale={0.9} rotation={[0.12, 0, 0]}>
+      {/* Wafer ring body (blue) — axis along Z so the bore/disc faces the viewer */}
+      <mesh material={mat} rotation={[Math.PI / 2, 0, 0]}>
         <cylinderGeometry args={[0.72, 0.72, 0.36, 64, 1, true]} />
       </mesh>
-      {/* Inner bore wall */}
-      <mesh material={boreMat} rotation={[0, 0, Math.PI / 2]}>
-        <cylinderGeometry args={[0.62, 0.62, 0.36, 64, 1, true]} />
+      {/* Grey rubber seat liner inside the bore */}
+      <mesh material={seatMat} rotation={[Math.PI / 2, 0, 0]}>
+        <cylinderGeometry args={[0.6, 0.6, 0.34, 64, 1, true]} />
       </mesh>
-      {/* Annular faces at each side of the wafer */}
-      {([-0.18, 0.18] as const).map((x, i) => (
-        <mesh key={i} material={mat} position={[x, 0, 0]} rotation={[0, Math.PI / 2, 0]}>
-          <ringGeometry args={[0.62, 0.72, 64]} />
-        </mesh>
+      {/* Blue rim + grey seat band on BOTH faces (each ring faces outward) */}
+      {([0.18, -0.18] as const).map((z, i) => (
+        <group key={`face${i}`} position={[0, 0, z]} rotation={[i === 1 ? Math.PI : 0, 0, 0]}>
+          <mesh material={mat}>
+            <ringGeometry args={[0.62, 0.72, 64]} />
+          </mesh>
+          <mesh material={seatMat} position={[0, 0, 0.003]}>
+            <ringGeometry args={[0.52, 0.62, 64]} />
+          </mesh>
+        </group>
       ))}
+      {/* Dark disc filling the bore (centred so both faces match) */}
+      <mesh material={discMat} rotation={[Math.PI / 2, 0, 0]} position={[0, 0, 0]}>
+        <cylinderGeometry args={[0.52, 0.52, 0.08, 48]} />
+      </mesh>
+      {/* Shiny metallic stem bar across the disc */}
+      <mesh material={stemMat} position={[0, 0.05, 0]}>
+        <cylinderGeometry args={[0.05, 0.05, 1.34, 16]} />
+      </mesh>
       {/* Lower locating lug */}
       <mesh material={mat} position={[0, -0.78, 0]}>
-        <boxGeometry args={[0.22, 0.18, 0.3]} />
+        <boxGeometry args={[0.24, 0.2, 0.34]} />
       </mesh>
-      {/* Rotating disc — blocks the bore, pivots about the vertical stem */}
-      <group ref={discRef}>
-        <mesh material={discMat} rotation={[0, 0, Math.PI / 2]}>
-          <cylinderGeometry args={[0.6, 0.6, 0.07, 48]} />
-        </mesh>
-      </group>
-      {/* Neck / bonnet where the stem exits the body */}
+      {/* Top neck boss + square ISO mounting flange */}
       <mesh material={mat} position={[0, 0.74, 0]}>
-        <cylinderGeometry args={[0.16, 0.2, 0.4, 24]} />
+        <cylinderGeometry args={[0.17, 0.22, 0.42, 24]} />
       </mesh>
-      {/* Mounting flange on the neck */}
-      <mesh material={mat} position={[0, 0.95, 0]}>
-        <cylinderGeometry args={[0.22, 0.22, 0.06, 24]} />
+      <mesh material={mat} position={[0, 0.97, 0]}>
+        <boxGeometry args={[0.42, 0.07, 0.34]} />
       </mesh>
-      {/* Stem */}
-      <mesh material={handleMat} position={[0, 1.06, 0]}>
-        <cylinderGeometry args={[0.05, 0.05, 0.3, 16]} />
+      {/* ── Black hand-lever assembly ── */}
+      {/* Pivot hub */}
+      <mesh material={handleMat} position={[0.05, 1.1, 0]}>
+        <boxGeometry args={[0.3, 0.16, 0.18]} />
       </mesh>
-      {/* Lever hub */}
-      <mesh material={handleMat} position={[0, 1.17, 0]}>
-        <boxGeometry args={[0.15, 0.13, 0.3]} />
+      {/* Toothed locking quadrant plate */}
+      <mesh material={handleMat} position={[0.16, 1.04, 0]}>
+        <boxGeometry args={[0.46, 0.34, 0.04]} />
       </mesh>
-      {/* Long flat lever handle extending to one side */}
-      <mesh material={handleMat} position={[0, 1.19, 0.5]}>
-        <boxGeometry args={[0.1, 0.07, 1.25]} />
+      {Array.from({ length: 5 }).map((_, i) => {
+        const a = -0.5 + i * 0.32;
+        return (
+          <mesh key={`tooth${i}`} material={handleMat} position={[0.16 + Math.cos(a) * 0.26, 1.04 + Math.sin(a) * 0.26, 0]}>
+            <boxGeometry args={[0.05, 0.05, 0.05]} />
+          </mesh>
+        );
+      })}
+      {/* Main handle bar + grip */}
+      <mesh material={handleMat} position={[0.66, 1.2, 0]} rotation={[0, 0, 0.06]}>
+        <boxGeometry args={[1.3, 0.08, 0.1]} />
       </mesh>
-      {/* Cam-lock trigger near the hub */}
-      <mesh material={handleMat} position={[0, 1.3, 0.18]} rotation={[0.3, 0, 0]}>
-        <boxGeometry args={[0.06, 0.2, 0.09]} />
+      <mesh material={handleMat} position={[1.28, 1.24, 0]}>
+        <boxGeometry args={[0.22, 0.12, 0.13]} />
+      </mesh>
+      {/* Squeeze-trigger release bar beneath the handle */}
+      <mesh material={handleMat} position={[0.6, 1.08, 0]} rotation={[0, 0, -0.04]}>
+        <boxGeometry args={[0.95, 0.045, 0.07]} />
       </mesh>
     </group>
   );
@@ -500,71 +559,81 @@ function ButterflyValve({ color, metalness, roughness }: { color: string; metaln
 function CheckValve({ color, metalness, roughness }: { color: string; metalness: number; roughness: number }) {
   const ref = useRef<THREE.Group>(null);
   const mat = useMat(color, metalness, roughness);
-  const flapMat = useMemo(() => new THREE.MeshPhysicalMaterial({ color: '#1f2937', metalness: 0.85, roughness: 0.3 }), []);
   const boltMat = useMemo(() => new THREE.MeshPhysicalMaterial({ color: '#0f172a', metalness: 1, roughness: 0.25 }), []);
-  const flapRef = useRef<THREE.Mesh>(null);
 
-  useFrame((state, delta) => {
-    if (ref.current) ref.current.rotation.y += delta * 0.35;
-    if (flapRef.current) flapRef.current.rotation.z = -0.35 + Math.sin(state.clock.elapsedTime * 1.1) * 0.22;
-  });
+  useFrame((_, delta) => { if (ref.current) ref.current.rotation.y += delta * 0.35; });
 
-  return (
-    <group ref={ref} scale={0.8} rotation={[0, Math.PI / 8, 0]}>
-      {/* Main body — cylinder explicitly rotated to lie horizontal */}
+  // End flange on the X axis (faces ±X): flange disc + raised face + bolt-hole ring.
+  const flangeEnd = (x: number, y: number, faceDir: number, R: number, bolts: number) => (
+    <group position={[x, y, 0]}>
       <mesh material={mat} rotation={[0, 0, Math.PI / 2]}>
-        <cylinderGeometry args={[0.5, 0.5, 1.7, 48]} />
+        <cylinderGeometry args={[R, R, 0.16, 48]} />
       </mesh>
-      {/* Bulbous swing chamber at the centre */}
-      <mesh material={mat}>
-        <sphereGeometry args={[0.6, 40, 32]} />
+      <mesh material={mat} position={[faceDir * 0.1, 0, 0]} rotation={[0, 0, Math.PI / 2]}>
+        <cylinderGeometry args={[R - 0.16, R - 0.16, 0.06, 40]} />
       </mesh>
-      {/* End flanges with bolt circles */}
-      {([-0.95, 0.95] as const).map((x, i) => (
-        <group key={i} position={[x, 0, 0]}>
-          <mesh material={mat} rotation={[0, 0, Math.PI / 2]}>
-            <cylinderGeometry args={[0.7, 0.7, 0.16, 48]} />
-          </mesh>
-          {Array.from({ length: 6 }).map((_, j) => {
-            const a = (j / 6) * Math.PI * 2;
-            return (
-              <mesh key={j} material={boltMat}
-                position={[0, Math.cos(a) * 0.56, Math.sin(a) * 0.56]} rotation={[0, 0, Math.PI / 2]}>
-                <cylinderGeometry args={[0.04, 0.04, 0.2, 8]} />
-              </mesh>
-            );
-          })}
-        </group>
-      ))}
-      {/* Bonnet neck */}
-      <mesh material={mat} position={[0, 0.5, 0]}>
-        <cylinderGeometry args={[0.3, 0.34, 0.3, 32]} />
-      </mesh>
-      {/* Bolted bonnet cover flange */}
-      <mesh material={mat} position={[0, 0.7, 0]}>
-        <cylinderGeometry args={[0.44, 0.44, 0.12, 32]} />
-      </mesh>
-      {/* Bonnet bolts */}
-      {Array.from({ length: 6 }).map((_, i) => {
-        const a = (i / 6) * Math.PI * 2;
+      {Array.from({ length: bolts }).map((_, j) => {
+        const a = (j / bolts) * Math.PI * 2;
         return (
-          <mesh key={`nb${i}`} material={boltMat} position={[Math.cos(a) * 0.36, 0.7, Math.sin(a) * 0.36]}>
-            <cylinderGeometry args={[0.035, 0.035, 0.18, 8]} />
+          <mesh key={j} material={boltMat}
+            position={[0, Math.cos(a) * (R - 0.12), Math.sin(a) * (R - 0.12)]} rotation={[0, 0, Math.PI / 2]}>
+            <cylinderGeometry args={[0.04, 0.04, 0.2, 10]} />
           </mesh>
         );
       })}
-      {/* Domed cap on the cover */}
-      <mesh material={mat} position={[0, 0.78, 0]}>
-        <sphereGeometry args={[0.3, 24, 12, 0, Math.PI * 2, 0, Math.PI / 2]} />
+    </group>
+  );
+
+  return (
+    <group ref={ref} scale={0.66} position={[0, -0.2, 0]} rotation={[0.16, Math.PI / 8, 0]}>
+      {/* Ball chamber — fat rounded body left-of-centre (the cover sits on it) */}
+      <mesh material={mat} position={[-0.42, 0.18, 0]}>
+        <sphereGeometry args={[0.52, 40, 32]} />
       </mesh>
-      {/* Side access plug */}
-      <mesh material={boltMat} position={[-0.18, 0.3, 0.52]} rotation={[Math.PI / 2, 0, 0]}>
-        <cylinderGeometry args={[0.07, 0.07, 0.14, 12]} />
+      {/* Wide arm: left flange → chamber (the big "pipe arm to the upper valve") */}
+      <mesh material={mat} position={[-0.74, 0.04, 0]} rotation={[0, 0, Math.PI / 2.3]}>
+        <cylinderGeometry args={[0.4, 0.44, 0.55, 40]} />
       </mesh>
-      {/* Swing flap inside the chamber */}
-      <mesh ref={flapRef} material={flapMat} rotation={[0, 0, Math.PI / 2]}>
-        <cylinderGeometry args={[0.42, 0.42, 0.06, 32]} />
+      {/* Left flange (faces −X), slightly higher + larger */}
+      {flangeEnd(-1.02, -0.06, -1, 0.64, 8)}
+      {/* Taper from the fat chamber down to the slim run */}
+      <mesh material={mat} position={[-0.16, -0.06, 0]} rotation={[0, 0, Math.PI / 2]}>
+        <cylinderGeometry args={[0.28, 0.46, 0.55, 36]} />
       </mesh>
+      {/* Slimmer run arm: chamber → right flange (lower) */}
+      <mesh material={mat} position={[0.32, -0.2, 0]} rotation={[0, 0, Math.PI / 2]}>
+        <cylinderGeometry args={[0.28, 0.28, 1.05, 36]} />
+      </mesh>
+      {/* Right flange (faces +X), smaller + lower */}
+      {flangeEnd(0.96, -0.2, 1, 0.5, 6)}
+      {/* ── Square bolted bonnet on TOP of the chamber (offset left, not centred) ── */}
+      <group position={[-0.42, 0, 0]}>
+        {/* Square neck */}
+        <mesh material={mat} position={[0, 0.58, 0]}>
+          <boxGeometry args={[0.5, 0.3, 0.5]} />
+        </mesh>
+        {/* Lower square bonnet flange */}
+        <mesh material={mat} position={[0, 0.74, 0]}>
+          <boxGeometry args={[0.74, 0.1, 0.74]} />
+        </mesh>
+        {/* Upper square cover plate (gap = split line) */}
+        <mesh material={mat} position={[0, 0.88, 0]}>
+          <boxGeometry args={[0.74, 0.12, 0.74]} />
+        </mesh>
+        {/* Hex bolt at each of the 4 corners */}
+        {([[-0.28, 0.28], [0.28, 0.28], [-0.28, -0.28], [0.28, -0.28]] as [number, number][]).map(([bx, bz], i) => (
+          <mesh key={`nb${i}`} material={boltMat} position={[bx, 0.82, bz]}>
+            <cylinderGeometry args={[0.045, 0.045, 0.32, 6]} />
+          </mesh>
+        ))}
+        {/* Central round domed port on the cover */}
+        <mesh material={mat} position={[0, 1.0, 0]}>
+          <cylinderGeometry args={[0.22, 0.26, 0.12, 28]} />
+        </mesh>
+        <mesh material={mat} position={[0, 1.07, 0]}>
+          <sphereGeometry args={[0.2, 24, 14, 0, Math.PI * 2, 0, Math.PI / 2]} />
+        </mesh>
+      </group>
     </group>
   );
 }
@@ -1159,15 +1228,15 @@ function FlangedTee({ color, metalness, roughness }: { color: string; metalness:
 
   useFrame((_, delta) => { if (ref.current) ref.current.rotation.y += delta * 0.38; });
 
-  const L = 0.78;
+  const L = 1.1;
   const armRots: [number, number, number][] = [
-    [0, 0, 0],            // +Y
-    [0, 0, Math.PI],      // -Y
-    [0, 0, -Math.PI / 2], // +X branch
+    [0, 0, -Math.PI / 2], // +X run
+    [0, 0, Math.PI / 2],  // -X run
+    [0, 0, 0],            // +Y branch (up)
   ];
 
   return (
-    <group ref={ref} scale={0.8} rotation={[Math.PI / 9, Math.PI / 5, 0]}>
+    <group ref={ref} scale={0.62} rotation={[0.16, 0, 0]}>
       <mesh material={mat}>
         <sphereGeometry args={[0.4, 32, 32]} />
       </mesh>

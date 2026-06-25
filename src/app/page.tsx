@@ -773,7 +773,7 @@ export default function Home() {
                     transition={{ type: 'spring', stiffness: 400, damping: 20 }}
                   >
                     <a
-                      href="tel:+917971549587"
+                      href="tel:+919839030844"
                       className="bg-muted/50 backdrop-blur-md text-foreground border border-border px-8 py-4 rounded-xl font-bold text-lg block"
                     >
                       Call Us
