@@ -22,7 +22,7 @@ export default function AboutPage() {
               Our Story
             </motion.span>
             <h1 className="text-5xl font-bold mb-8">
-              50+ Years of Manufacturing Excellence.
+              15+ Years of Manufacturing Excellence.
             </h1>
             <p className="text-xl text-muted-foreground leading-relaxed">
               Sanghi Pipes &amp; Tubes, based in Kanpur, Uttar Pradesh, is a specialist manufacturer
@@ -70,7 +70,7 @@ export default function AboutPage() {
               <h2 className="text-3xl font-bold mb-6">Our Journey</h2>
               <div className="space-y-6 text-muted-foreground text-lg leading-relaxed">
                 <p>
-                  With over 20 years of focused expertise in Flanging, we manufacture
+                  With over 15 years of focused expertise in Flanging, we manufacture
                   D.I. / C.I. Double Flange Pipes to IS:8329 at our dedicated facility
                   in Kanpur. Every pipe is precision-machined for leak-proof flanged seating, built
                   for pump houses, bridge crossings, and critical water infrastructure.
@@ -125,8 +125,8 @@ export default function AboutPage() {
           {[
             {
               icon: <Factory className="text-primary" size={40} />,
-              title: '20+ Years DF Manufacturing',
-              desc: 'Two decades of Manufacturing expertise. Our Double Flanged Pipes set the standard for precision and reliability in India.',
+              title: '15+ Years DF Manufacturing',
+              desc: 'Over 15 years of Manufacturing expertise. Our Double Flanged Pipes set the standard for precision and reliability in India.',
             },
             {
               icon: <Target className="text-primary" size={40} />,

@@ -119,7 +119,7 @@ const certCategories: CertCategory[] = [
 const stats = [
   { value: '5',   label: 'Active Certifications' },
   { value: '3',   label: 'Standards Bodies'       },
-  { value: '20+', label: 'Years Certified'        },
+  { value: '15+', label: 'Years Certified'        },
   { value: '100%',label: 'Audit Pass Rate'        },
 ];
 

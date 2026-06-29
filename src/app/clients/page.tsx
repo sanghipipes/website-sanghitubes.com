@@ -94,7 +94,7 @@ const tabs = [
 const sectorStats = [
   { value: 'Pan India', label: '& Exports'        },
   { value: '1000+',     label: 'Projects Delivered'},
-  { value: '50+',       label: 'Years of Service'  },
+  { value: '15+',       label: 'Years of Service'  },
 ];
 
 export default function ClientsPage() {
@@ -122,7 +122,7 @@ export default function ClientsPage() {
             </h1>
             <p className="text-xl text-muted-foreground max-w-2xl leading-relaxed">
               Trusted by India&apos;s most critical water authorities, infrastructure firms, and
-              government bodies for over five decades.
+              government bodies for over 15 years.
             </p>
           </FadeIn>
 

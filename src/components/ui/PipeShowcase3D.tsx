@@ -527,13 +527,13 @@ export const PipeShowcase3D = () => {
                 <span className="text-primary not-italic">Flanged</span>
               </h2>
               <p className="text-muted-foreground text-xl mb-4 leading-relaxed font-medium">
-                20+ Years of Experience in flanging of pipes
+                15+ Years of Experience in flanging of pipes
               </p>
               <div className="grid grid-cols-2 gap-6">
                 {[
                   { label: 'Tensile Strength', val: '420 MPa' },
                   { label: 'Yield Strength', val: '300 MPa' },
-                  { label: 'Pressure Class', val: 'K9 / K12' },
+                  { label: 'Pressure Class', val: 'K9' },
                   { label: 'Standard', val: 'IS 8329' },
                 ].map((s) => (
                   <div key={s.label} className="border-l-2 border-primary/30 pl-5">
@@ -601,13 +601,13 @@ export const PipeShowcase3D = () => {
                 <span className="text-primary not-italic">TO LAST</span>
               </h2>
               <p className="text-xl md:text-2xl text-muted-foreground mb-14 max-w-3xl mx-auto font-light uppercase tracking-tight leading-tight">
-                50+ Years of Industry Excellence.
+                15+ Years of Industry Excellence.
                 <br />
-                <span className="text-foreground font-bold italic">20+ Years of Double Flanged Pipe Manufacturing.</span>
+                <span className="text-foreground font-bold italic">15+ Years of Double Flanged Pipe Manufacturing.</span>
               </p>
               <div className="flex flex-wrap justify-center gap-14">
                 {[
-                  { l: 'Industry Experience', v: '50+ Years' },
+                  { l: 'Industry Experience', v: '15+ Years' },
                   { l: 'Quality Audits', v: '100%' },
                   { l: 'Service Life', v: '100+ Years' },
                 ].map((s) => (

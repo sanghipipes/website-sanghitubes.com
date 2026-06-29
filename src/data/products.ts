@@ -54,13 +54,13 @@ export const products: Product[] = [
     features: [
       "Manufactured in-house to IS:8329",
       "Precision-machined flanged faces for leak-proof seating",
-      "Available in K9 and K12 pressure classes",
+      "Available in K9 pressure class",
       "Bitumen or epoxy internal lining",
       "Compatible with standard DI flanged fittings",
     ],
     specs: {
       Standard: "IS:8329",
-      "Pressure Class": "K9 / K12",
+      "Pressure Class": "K9",
       "Size Range": "DN 80 – 600 mm",
       "Joint Type": "Flanged",
       "Internal Lining": "Bitumen / Cement Mortar",
@@ -220,28 +220,6 @@ export const products: Product[] = [
 
   // ── DI Specials ─────────────────────────────────────────────────────────────
 
-  {
-    id: "di-specials",
-    name: "C.I./D.I. Specials",
-    category: "CI/DI Specials",
-    description:
-      "Complete range of ductile iron pipeline fittings and specials — bends, tees, reducers, tapers, collars, flanged adaptors, dismantling joints, and mechanical couplings — to IS:9523 for DI water mains.",
-    features: [
-      "Full range: bends (11.25°, 22.5°, 45°, 90°), tees, reducers, tapers",
-      "Flanged, mechanical joint, and push-on end variants",
-      "Cement mortar or epoxy internal lining",
-      "Bitumen or fusion-bonded epoxy external coating",
-      "Custom specials fabricated to drawing",
-    ],
-    specs: {
-      Standard: "IS:9523 / IS:1538",
-      "Size Range": "DN 80 – 1200 mm",
-      "Pressure Class": "PN 10-16",
-      "Internal Lining": "Cement Mortar / Epoxy",
-      Coating: "Bitumen / FBE",
-      "End Types": "Flanged / Socket & Spigot / Mechanical Joint",
-    },
-  },
   {
     id: "di-flanged-bend-45",
     name: "D.I. Double Flanged 45° Bend",

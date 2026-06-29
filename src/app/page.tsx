@@ -52,7 +52,7 @@ const categoryCards = [
 const whyChooseCards = [
   {
     icon: Factory,
-    title: '20+ Years DF Manufacturing',
+    title: '15+ Years DF Manufacturing',
     desc: 'Industry-leading expertise in Flanging of centrifugally casted ductile iron/ cast iron pipes - precision engineered to IS:8329.',
   },
   {
@@ -77,8 +77,8 @@ const whyChooseCards = [
   },
   {
     icon: TrendingUp,
-    title: '50+ Years Industry Legacy',
-    desc: 'Decades of accumulated knowledge, trusted relationships, and manufacturing heritage behind every product we deliver.',
+    title: '15+ Years Industry Legacy',
+    desc: 'Years of accumulated knowledge, trusted relationships, and manufacturing heritage behind every product we deliver.',
   },
 ];
 
@@ -137,7 +137,7 @@ export default function Home() {
             <div className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]" />
             <div className="grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-12 md:gap-12 relative z-10 px-5 sm:px-8 md:px-12">
               {[
-                { label: 'Years Experience', value: '50+' },
+                { label: 'Years Experience', value: '15+' },
                 { label: 'Products In Range', value: '500+' },
                 { label: 'Clients Globally', value: '1200+' },
                 { label: 'Quality Standards', value: 'BIS/ISO' },
@@ -164,7 +164,7 @@ export default function Home() {
                 Why Choose <span className="text-primary not-italic">Sanghi</span>
               </h2>
               <p className="text-muted-foreground max-w-2xl mx-auto text-lg">
-                Five decades of industry knowledge. Twenty years of double flanged pipe manufacturing. One trusted name.
+                Over 15 years of double flanged pipe manufacturing expertise. One trusted name.
               </p>
             </div>
           </FadeIn>
@@ -212,7 +212,7 @@ export default function Home() {
                   Our Core <span className="text-primary not-italic">Expertise</span>
                 </h2>
                 <p className="text-muted-foreground max-w-xl mx-auto">
-                  Industry-defining products built from decades of manufacturing precision.
+                  Industry-defining products built from years of manufacturing precision.
                 </p>
               </div>
             </FadeIn>
@@ -232,7 +232,7 @@ export default function Home() {
                     <InteractiveProductModel type="flanged-pipe" color="#1a2535" metalness={0.95} roughness={0.28} />
                     <div className="absolute top-6 left-6">
                       <span className="bg-primary text-white text-[9px] font-black uppercase tracking-[0.2em] px-4 py-2 rounded-full">
-                        20+ Years Manufacturing
+                        15+ Years Manufacturing
                       </span>
                     </div>
                   </div>
@@ -245,12 +245,12 @@ export default function Home() {
                     <p className="text-muted-foreground leading-relaxed mb-6">
                       Centrifugally cast Ductile Iron Double Flange Pipes — our core manufacturing
                       expertise. Precision-machined flanged ends for leak-proof seating in pump houses,
-                      bridge crossings, and critical installations. K9 &amp; K12 pressure classes.
+                      bridge crossings, and critical installations. K9 pressure class.
                     </p>
                     <div className="grid grid-cols-3 gap-4 mb-8">
                       {[
                         { l: 'Size Range', v: 'DN 80–600' },
-                        { l: 'Pressure', v: 'K9 / K12' },
+                        { l: 'Pressure', v: 'K9' },
                         { l: 'Lining', v: 'Bitumen / Epoxy' },
                       ].map((s) => (
                         <div key={s.l} className="text-center p-3 bg-muted/20 rounded-xl border border-border/30">
@@ -463,7 +463,7 @@ export default function Home() {
                 <p className="text-muted-foreground mb-12 leading-relaxed text-xl font-medium">
                   Sanghi Pipes &amp; Tubes has received the prestigious Licence from the Bureau of
                   Indian Standards. We are recognised as one of India&apos;s most reliable manufacturers
-                  of Centrifugally Cast D.I. / C.I. Double Flange Pipes — now expanding into OPVC
+                  of Centrifugally Cast D.I. Double Flange Pipes — now expanding into OPVC
                   with the same commitment to engineering precision.
                 </p>
 
@@ -471,7 +471,7 @@ export default function Home() {
                   {[
                     { icon: <ShieldCheck className="text-primary" size={32} />, title: 'Certified Quality', desc: 'BIS and ISO certified products' },
                     { icon: <Factory className="text-primary" size={32} />, title: 'Modern Facility', desc: 'State-of-the-art centrifugal casting' },
-                    { icon: <Award className="text-primary" size={32} />, title: 'Industry Leader', desc: '50+ years of industry presence' },
+                    { icon: <Award className="text-primary" size={32} />, title: 'Industry Leader', desc: '15+ years of industry presence' },
                     { icon: <CheckCircle2 className="text-primary" size={32} />, title: 'Govt. Approved', desc: 'Trusted by Indian Govt. departments' },
                   ].map((feature, i) => (
                     <StaggerItem key={i} className="flex gap-6 group">
@@ -695,7 +695,7 @@ export default function Home() {
               {/* Stats row */}
               <div className="grid grid-cols-3 md:grid-cols-6 gap-2 shrink-0">
                 {[
-                  { label: 'Experience', value: '50+ Years' },
+                  { label: 'Experience', value: '15+ Years' },
                   { label: 'Products', value: '500+' },
                   { label: 'Clients', value: '1,200+' },
                   { label: 'Certified', value: 'BIS/ISO' },

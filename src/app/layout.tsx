@@ -20,7 +20,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Sanghi Pipes & Tubes | Premium Industrial Solutions",
-  description: "Sanghi Pipes & Tubes — Manufacturer of DI Double Flange Pipes and OPVC Pipes. BIS Licensed. 50+ years of industry expertise. Serving India's infrastructure from Kanpur, Uttar Pradesh.",
+  description: "Sanghi Pipes & Tubes — Manufacturer of DI Double Flange Pipes and OPVC Pipes. BIS Licensed. 15+ years of industry expertise. Serving India's infrastructure from Kanpur, Uttar Pradesh.",
 };
 
 export default async function RootLayout({

@@ -22,7 +22,6 @@ function getProductModelProps(product: Product) {
     'butterfly-valve':        { type: 'butterfly-valve', color: '#1d4ed8', metalness: 0.5,  roughness: 0.42 },
     'non-return-valve':       { type: 'check-valve',     color: '#1d4ed8', metalness: 0.5,  roughness: 0.42 },
     // CI/DI Specials — all rendered in black cast-iron
-    'di-specials':            { type: 'pipe-tee',        color: '#2a2f38', metalness: 0.5,  roughness: 0.55 },
     'di-flanged-bend-45':     { type: 'flanged-bend-45', color: '#2a2f38', metalness: 0.5,  roughness: 0.55 },
     'di-socket-tee':          { type: 'socket-tee',      color: '#2a2f38', metalness: 0.5,  roughness: 0.55 },
     'di-flanged-tee':         { type: 'flanged-tee',     color: '#2a2f38', metalness: 0.5,  roughness: 0.55 },

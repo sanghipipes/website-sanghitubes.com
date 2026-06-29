@@ -65,7 +65,7 @@ export const Footer = () => {
           <Logo />
           <p className="text-sm leading-relaxed text-muted-foreground">
             Sanghi Pipes &amp; Tubes is a manufacturer of Centrifugally Cast Double Flange
-            Pipes and OPVC Pipes. Serving India&apos;s infrastructure with 50+ years of
+            Pipes and OPVC Pipes. Serving India&apos;s infrastructure with 15+ years of
             industry expertise.
           </p>
           <div className="flex gap-4">
