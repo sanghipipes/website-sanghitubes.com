@@ -1183,7 +1183,7 @@ function SocketArm({
 function FlangedBend45({ color, metalness, roughness }: { color: string; metalness: number; roughness: number }) {
   const ref = useRef<THREE.Group>(null);
   const mat = useMat(color, metalness, roughness);
-  const boreMat = useBoreMat(color);
+  const boreMat = useCementBore();
   const boltMat = useMemo(() => new THREE.MeshPhysicalMaterial({ color: '#0f172a', metalness: 1, roughness: 0.25 }), []);
 
   useFrame((_, delta) => { if (ref.current) ref.current.rotation.y += delta * 0.4; });
@@ -1216,7 +1216,7 @@ function FlangedBend45({ color, metalness, roughness }: { color: string; metalne
 function SocketTee({ color, metalness, roughness }: { color: string; metalness: number; roughness: number }) {
   const ref = useRef<THREE.Group>(null);
   const mat = useMat(color, metalness, roughness);
-  const boreMat = useBoreMat(color);
+  const boreMat = useCementBore();
 
   useFrame((_, delta) => { if (ref.current) ref.current.rotation.y += delta * 0.4; });
 
@@ -1247,7 +1247,7 @@ function SocketTee({ color, metalness, roughness }: { color: string; metalness: 
 function FlangedTee({ color, metalness, roughness }: { color: string; metalness: number; roughness: number }) {
   const ref = useRef<THREE.Group>(null);
   const mat = useMat(color, metalness, roughness);
-  const boreMat = useBoreMat(color);
+  const boreMat = useCementBore();
   const boltMat = useMemo(() => new THREE.MeshPhysicalMaterial({ color: '#0f172a', metalness: 1, roughness: 0.25 }), []);
 
   useFrame((_, delta) => { if (ref.current) ref.current.rotation.y += delta * 0.38; });
@@ -1277,7 +1277,7 @@ function FlangedTee({ color, metalness, roughness }: { color: string; metalness:
 function FlangedCross({ color, metalness, roughness }: { color: string; metalness: number; roughness: number }) {
   const ref = useRef<THREE.Group>(null);
   const mat = useMat(color, metalness, roughness);
-  const boreMat = useBoreMat(color);
+  const boreMat = useCementBore();
   const boltMat = useMemo(() => new THREE.MeshPhysicalMaterial({ color: '#0f172a', metalness: 1, roughness: 0.25 }), []);
 
   useFrame((_, delta) => { if (ref.current) ref.current.rotation.y += delta * 0.36; });
@@ -1308,7 +1308,7 @@ function FlangedCross({ color, metalness, roughness }: { color: string; metalnes
 function Collar({ color, metalness, roughness }: { color: string; metalness: number; roughness: number }) {
   const ref = useRef<THREE.Group>(null);
   const mat = useMat(color, metalness, roughness);
-  const boreMat = useBoreMat(color);
+  const boreMat = useCementBore();
 
   useFrame((_, delta) => { if (ref.current) ref.current.rotation.y += delta * 0.45; });
 
@@ -1442,7 +1442,7 @@ function FlangedAdapter({ color, metalness, roughness }: { color: string; metaln
 function SocketBend11({ color, metalness, roughness }: { color: string; metalness: number; roughness: number }) {
   const ref = useRef<THREE.Group>(null);
   const mat = useMat(color, metalness, roughness);
-  const boreMat = useBoreMat(color);
+  const boreMat = useCementBore();
 
   useFrame((_, delta) => { if (ref.current) ref.current.rotation.y += delta * 0.42; });
 
@@ -1495,7 +1495,7 @@ function Plug({ color, metalness, roughness }: { color: string; metalness: numbe
 function DuckfootBend90({ color, metalness, roughness }: { color: string; metalness: number; roughness: number }) {
   const ref = useRef<THREE.Group>(null);
   const mat = useMat(color, metalness, roughness);
-  const boreMat = useBoreMat(color);
+  const boreMat = useCementBore();
   const boltMat = useMemo(() => new THREE.MeshPhysicalMaterial({ color: '#0f172a', metalness: 1, roughness: 0.25 }), []);
 
   useFrame((_, delta) => { if (ref.current) ref.current.rotation.y += delta * 0.4; });
@@ -1549,7 +1549,7 @@ function DuckfootBend90({ color, metalness, roughness }: { color: string; metaln
 function SocketCross({ color, metalness, roughness }: { color: string; metalness: number; roughness: number }) {
   const ref = useRef<THREE.Group>(null);
   const mat = useMat(color, metalness, roughness);
-  const boreMat = useBoreMat(color);
+  const boreMat = useCementBore();
 
   useFrame((_, delta) => { if (ref.current) ref.current.rotation.y += delta * 0.36; });
 
@@ -1576,7 +1576,7 @@ function SocketCross({ color, metalness, roughness }: { color: string; metalness
 function FlangeSocketTee({ color, metalness, roughness }: { color: string; metalness: number; roughness: number }) {
   const ref = useRef<THREE.Group>(null);
   const mat = useMat(color, metalness, roughness);
-  const boreMat = useBoreMat(color);
+  const boreMat = useCementBore();
   const boltMat = useMemo(() => new THREE.MeshPhysicalMaterial({ color: '#0f172a', metalness: 1, roughness: 0.25 }), []);
 
   useFrame((_, delta) => { if (ref.current) ref.current.rotation.y += delta * 0.38; });
@@ -1601,7 +1601,7 @@ function FlangeSocketTee({ color, metalness, roughness }: { color: string; metal
 function SocketBend90({ color, metalness, roughness }: { color: string; metalness: number; roughness: number }) {
   const ref = useRef<THREE.Group>(null);
   const mat = useMat(color, metalness, roughness);
-  const boreMat = useBoreMat(color);
+  const boreMat = useCementBore();
 
   useFrame((_, delta) => { if (ref.current) ref.current.rotation.y += delta * 0.4; });
 
@@ -1753,7 +1753,7 @@ function FlangedSocket({ color, metalness, roughness }: { color: string; metalne
 function MJCollar({ color, metalness, roughness }: { color: string; metalness: number; roughness: number }) {
   const ref = useRef<THREE.Group>(null);
   const mat = useMat(color, metalness, roughness);
-  const boreMat = useBoreMat(color);
+  const boreMat = useCementBore();
   const nutMat = useMemo(() => new THREE.MeshPhysicalMaterial({ color: '#c9ced6', metalness: 1, roughness: 0.3 }), []);
   const studMat = useMemo(() => new THREE.MeshPhysicalMaterial({ color: '#3a4350', metalness: 1, roughness: 0.35 }), []);
 
@@ -1800,7 +1800,7 @@ function MJCollar({ color, metalness, roughness }: { color: string; metalness: n
 function EndCap({ color, metalness, roughness }: { color: string; metalness: number; roughness: number }) {
   const ref = useRef<THREE.Group>(null);
   const mat = useMat(color, metalness, roughness);
-  const boreMat = useBoreMat(color);
+  const boreMat = useCementBore();
 
   useFrame((_, delta) => { if (ref.current) ref.current.rotation.y += delta * 0.5; });
 
