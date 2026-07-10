@@ -65,7 +65,7 @@ export function quoteConfirmationHtml(data: QuoteConfirmationData): string {
         <p style="margin:0 0 8px;color:#1e40af;font-weight:700;font-size:15px;">Need to reach us sooner?</p>
         <p style="margin:0;color:#374151;font-size:14px;line-height:1.8;">
           📞 <a href="tel:+917971549587" style="color:#1e40af;text-decoration:none;">+91 7971549587</a><br>
-          ✉️ <a href="mailto:info@sanghitubes.com" style="color:#1e40af;text-decoration:none;">info@sanghitubes.com</a><br>
+          ✉️ <a href="mailto:info@sanghipipes.com" style="color:#1e40af;text-decoration:none;">info@sanghipipes.com</a><br>
           🕐 Mon–Sat, 9:00 AM – 7:00 PM
         </p>
       </div>

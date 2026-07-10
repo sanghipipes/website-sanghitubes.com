@@ -13,4 +13,4 @@ export function getResend(): Resend {
 }
 
 export const FROM_EMAIL = process.env.RESEND_FROM_EMAIL ?? 'noreply@sanghitubes.com'
-export const COMPANY_EMAIL = process.env.COMPANY_NOTIFICATION_EMAIL ?? 'info@sanghitubes.com'
+export const COMPANY_EMAIL = process.env.COMPANY_NOTIFICATION_EMAIL ?? 'info@sanghipipes.com'

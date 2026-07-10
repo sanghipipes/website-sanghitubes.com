@@ -200,6 +200,6 @@ All design tokens (colours, radius, fonts) are defined as CSS custom properties 
 | **Company** | Sanghi Tubes Private Limited |
 | **Location** | B No 79/8, Latouche Road, Kanpur — 208002, Uttar Pradesh, India |
 | **Phone** | +91 7971549587 |
-| **Email** | info@sanghitubes.com |
+| **Email** | info@sanghipipes.com |
 | **Working Hours** | Mon – Sat, 9:00 AM – 7:00 PM |
 | **Certifications** | BIS Licensed, ISO 9001:2015 |

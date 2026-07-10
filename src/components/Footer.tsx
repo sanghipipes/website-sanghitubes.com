@@ -41,7 +41,7 @@ const contactItems = [
     text: '79/8, Latouche Road, Kanpur - 208002, Uttar Pradesh, India',
   },
   { icon: <Phone size={18} className="text-primary shrink-0" />, text: '+91 9839030844' },
-  { icon: <Mail size={18} className="text-primary shrink-0" />, text: 'info@sanghitubes.com' },
+  { icon: <Mail size={18} className="text-primary shrink-0" />, text: 'info@sanghipipes.com' },
 ];
 
 export const Footer = () => {

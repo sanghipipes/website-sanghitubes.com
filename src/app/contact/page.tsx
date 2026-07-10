@@ -74,7 +74,7 @@ export default function ContactPage() {
                 {
                   icon: <Mail />,
                   title: 'Email Us',
-                  detail: 'info@sanghitubes.com',
+                  detail: 'info@sanghipipes.com',
                   sub: 'Response within 24hrs',
                 },
                 {
