@@ -8,6 +8,10 @@ frontend:
         - npm ci
     build:
       commands:
+        # Amplify SSR compute doesn't expose console env vars to the Next.js
+        # runtime by default. Write the ones the server reads into
+        # .env.production so `next start` loads them at request time.
+        - env | grep -e '^NEXT_PUBLIC_' -e '^SUPABASE_' -e '^RESEND_' -e '^TURNSTILE_' -e '^COMPANY_' >> .env.production
         - npm run build
   artifacts:
     baseDirectory: .next
