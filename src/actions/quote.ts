@@ -90,9 +90,6 @@ export async function submitQuoteAction(
     return { success: true, data: { quoteId: quote.id } }
   } catch (err) {
     console.error('[Action] submitQuote error:', err)
-    // TEMP DIAGNOSTIC: surface the real error to pin down the prod DB failure. Revert after.
-    const e = err as { message?: string; code?: string; details?: string; hint?: string }
-    const detail = e?.message || e?.details || e?.hint || e?.code || String(err)
-    return { success: false, error: `Failed to submit quote. [debug: ${detail}]` }
+    return { success: false, error: 'Failed to submit quote. Please try again later.' }
   }
 }
